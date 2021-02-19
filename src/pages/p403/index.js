@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import logo from '../../img.png';
 import { Button } from "../../component"
 
-class Login extends Component {
+class p403 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,16 +58,6 @@ class Login extends Component {
                 <center><img height="175" alt="Logo"/><br/></center>
                 <h2><center>FORM LOGIN<br/>
                 APLIKASI MANAGEMEN RUANGAN</center></h2>
-                <input type="text" className="form-control"  placeholder="Masukan Username" name="username" onChange={this.setValueInput}/><br/>
-                <input type="password" className="form-control"  placeholder="Masukan Password" name="password" onChange={this.setValueInput}/><br/>
-                <fieldset className="form-group floating-label-form-group">
-                  <select id="select" name="role" onChange={this.setValueInput} className="custom-select">
-                  <option value="">-- Pilih Role Login--</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Pimpinan">Pimpinan</option>
-                  </select>
-                </fieldset>
-            <Button className="btn btn-primary waves-effect waves-light form-control" onClick={() => this.doLogin({username, password, role})}><i className="fa fa-check" /> Login</Button>
 
             </div>
           </div>
@@ -91,4 +81,4 @@ const mapStateToProps = state => ({
     }
   }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(Login);
+  export default connect(mapStateToProps, mapDispatchToProps)(p403);

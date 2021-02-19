@@ -32,7 +32,7 @@ class Menu extends Component {
       <ul className="metismenu" id="side-menu">
         <li>
         <Link to="/">
-          <Fitur redirect={() => changePage("dashboard")}>
+          <Fitur onClick={() => this.props.history.push("/")}>
             <i className="fa fa-home" /><span> Dashboard </span>
           </Fitur>
           </Link>
@@ -42,8 +42,8 @@ class Menu extends Component {
           <a href="/home" className="waves-effect"><i className="fas fa-th-list" /><span> Laporan<span className="float-right menu-arrow"><i className="mdi mdi-plus" /></span> </span></a>
           <ul className="submenu">
             <li>
-        <Link to="/home">
-          <Fitur redirect={() => changePage("home")}>
+        <Link to="/laporan">
+          <Fitur onClick={() => this.props.history.push("/laporan")}>
             <i className="fa fa-list" /><span> Home</span>
           </Fitur>
           </Link>

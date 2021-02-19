@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom"
 
-import { Dashboard} from "../../../pages/pimpinan"
+import { Dashboard, Laporan} from "../../../pages/pimpinan"
 
 class Body extends Component {
     constructor(props) {
@@ -15,7 +15,8 @@ class Body extends Component {
  
         return (
             <Switch>
-            <Route path="/" exact component={Dashboard} />
+            <Route exact path="/" component={props =>   <Dashboard {...props} />}/>
+            <Route path="/laporan" component={props => <Laporan {...props} />} />
                 {/* <Route path="/home">
                       <Home/>
                     </Route> */}

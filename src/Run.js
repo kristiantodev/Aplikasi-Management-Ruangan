@@ -15,6 +15,7 @@ class Run extends Component {
     if (this.props.checkLogin == true && this.props.dataUserLogin.role == "Admin") {
         console.log("isLogin", this.props.checkLogin)
         console.log("Role", this.props.dataUserLogin.role)
+        console.log("nama", this.props.dataUserLogin.nama)
        return <App></App>
     }else if(this.props.checkLogin == true && this.props.dataUserLogin.role == "Pimpinan"){
         return <AppPimpinan/>

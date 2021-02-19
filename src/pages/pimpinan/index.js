@@ -1,3 +1,4 @@
 import Dashboard from "./dashboard"
+import Laporan from "./laporan"
 
-export {Dashboard}
+export {Dashboard, Laporan}
