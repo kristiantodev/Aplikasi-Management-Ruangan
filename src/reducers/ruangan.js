@@ -5,13 +5,13 @@ let defaultState = {
         namaLantai : "Basement",
         namaRuangan : "R.Rajawali",
         kondisiRuangan : "Baik",
-        deskripsi : "-"
+        deskripsi : "Terpakai"
     },
     {
         namaLantai : "GF",
         namaRuangan : "R.Masak",
         kondisiRuangan : "Baik",
-        deskripsi : "Terpakai banyak"
+        deskripsi : "Kosong"
     }
     ]
 }
@@ -57,7 +57,7 @@ const ruanganReducer = (state = defaultState, action) => {
                     newRuangan[action.payload.index].deskripsi = action.payload.deskripsi;
 
                     return {
-                        lantai : newRuangan
+                        ruangan : newRuangan
                     }
     
 
