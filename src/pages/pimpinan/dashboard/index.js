@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
+
+    getTanggal = () => {
+      let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = today.getFullYear();
+  return (today = dd + '/' + mm + '/' + yyyy);
+    };
+
     render() {
         return (
             <div className="content-page">
@@ -37,7 +47,7 @@ class Dashboard extends Component {
                           <div className="mini-stat-desc">
                             <h6 className="verti-label text-white-50">nexSOFT</h6>
                             <div className="text-white">
-                              <h6 className="mt-0 text-white-50">Nama</h6>
+                              <h6 className="mt-0 text-white-50">{this.props.dataUserLogin.nama}</h6>
                               <h4 className="mb-3 mt-0"><b> 
                                 Kristianto</b></h4>
                             </div>
@@ -55,7 +65,7 @@ class Dashboard extends Component {
                             <h6 className="verti-label text-white-50">nexSOFT</h6>
                             <div className="text-white">
                               <h6 className="mt-0 text-white-50">Tanggal</h6>
-                              <h4 className="mb-3 mt-0"><b>18 Februari 2020</b></h4>
+                              <h4 className="mb-3 mt-0"><b>{this.getTanggal()}</b></h4>
                             </div>
                             <div className="mini-stat-icon">
                               <i className="fas fa-clock  display-2" />
@@ -70,7 +80,7 @@ class Dashboard extends Component {
                           <div className="mini-stat-desc">
                             <h6 className="verti-label text-white-50">nexSOFT</h6>
                             <div className="text-white">
-                              <h6 className="mt-0 text-white-50">Email</h6>
+                              <h6 className="mt-0 text-white-50">{this.props.dataUserLogin.email}</h6>
                               <h5 className="mb-3 mt-0"><b>
                                   kris@gmail.com</b></h5>
                             </div>
@@ -93,4 +103,15 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  checkLogin: state.AReducer.isLogin,
+  dataUserLogin: state.AReducer.userLogin
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    keluar: () => dispatch({ type: "LOGOUT_SUCCESS" }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -1,47 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom"
 import { connect } from "react-redux"
-import logo from '../../img.png';
+import logo from '../../error.png';
 import { Button } from "../../component"
 
 class p403 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username:"",
-            password:"",
-            role : ""
+           
         }
     }
-
-    setValueInput = e => {
-        this.setState({
-          [e.target.name]: e.target.value
-        })
-      }
-
-      doLogin = userObj => {
-        const { username, password, role } = userObj
-        console.log("user", username)
-        console.log("pass", password)
-        console.log("role", role)
-
-        let find = this.props.dataUser.filter(user => {
-          return user.username === username && user.password === password && user.role === role
-        })
-
-        let dataLogin = this.props.dataUser.filter(user => {
-            return user.username === username 
-        })
-    
-        if(find.length > 0){
-            this.props.submitLogin({userData: dataLogin[0]})
-            alert("Selamat datang "+username+" Anda berhasil login!!")
-        }else{
-             alert("Username atau Password atau Role Salah !!")
-        }
-        
-      }
 
     render() {
         const { username, password, role } = this.state
@@ -53,12 +22,12 @@ class p403 extends Component {
         <div className="col-12">
           <div className="card m-b-20">
             <div className="card-body">
-              
-              <br/><br/><br/><br/><br/><br/><br/>
-                <center><img height="175" alt="Logo"/><br/></center>
-                <h2><center>FORM LOGIN<br/>
-                APLIKASI MANAGEMEN RUANGAN</center></h2>
-
+                <center><img src={logo} height="475" alt="Logo"/><br/>
+                <Button onClick={() => this.props.history.push("/")} className="btn btn-primary waves-effect waves-light">
+                      <i className="fas fa-angle-double-left " /><span> Kembali ke Halaman Login</span>
+                </Button>
+                </center>
+                
             </div>
           </div>
         </div>

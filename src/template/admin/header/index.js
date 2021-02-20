@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from '../../../logo.png';
 
 class Header extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class Header extends Component {
             <div className="topbar-left">
               <a className="logo">
                 <span>
-                  <img height="60" width="120" />
+                  <img src={logo} height="65" width="120" />
                 </span>
               </a>
             </div>

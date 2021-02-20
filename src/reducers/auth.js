@@ -13,6 +13,7 @@ const authReducer = (state = defaultState, action) => {
   console.warn("action:", action);
   switch (action.type) {
       case "LOGIN_SUCCESS":
+        console.log("object")
           return {
               isLogin: true,
               userLogin: {
@@ -25,6 +26,7 @@ const authReducer = (state = defaultState, action) => {
           }
 
       case "LOGOUT_SUCCESS":
+        console.log("object")
           return defaultState
      
       default:

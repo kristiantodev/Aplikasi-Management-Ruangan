@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import { Fitur } from "../../../component"
+import { connect } from "react-redux"
+import logo from '../../../adm.jpg';
 
 class Menu extends Component {
     constructor(props) {
@@ -8,9 +10,15 @@ class Menu extends Component {
         this.state = {
         }
     }
+
+    doLogout = () => {
+      if(window.confirm("yakin ingin keluar dari sistem ?")){
+      this.props.logoutAction()
+      }
+    }
     
     render() {
-        console.log("menu:", this.props.page);
+        console.log("menu:", this.props);
         const { changePage } = this.props
         return (
 
@@ -19,13 +27,13 @@ class Menu extends Component {
   <div className="slimscroll-menu" id="remove-scroll">
     <div className="user-details">
       <div className="float-left mr-2">
-        <img className="thumb-md rounded-circle" />
+        <img src={logo} className="thumb-md rounded-circle" />
       </div>
       <div className="user-info">
         <div className="dropdown">
-        <font color="#0285b4"><b>Pimpinan</b></font>
+        <font color="#0285b4"><b>{this.props.dataUserLogin.nama}</b></font>
         </div>
-        <p className="text-white"><font color="#0285b4">Pimpinan</font></p>
+        <p className="text-white"><font color="#0285b4">{this.props.dataUserLogin.role}</font></p>
       </div>
     </div>
     <div id="sidebar-menu">
@@ -39,7 +47,7 @@ class Menu extends Component {
         </li>
 
         <li>
-          <a href="/home" className="waves-effect"><i className="fas fa-th-list" /><span> Laporan<span className="float-right menu-arrow"><i className="mdi mdi-plus" /></span> </span></a>
+          <a href="/laporan" className="waves-effect"><i className="fas fa-th-list" /><span> Laporan<span className="float-right menu-arrow"><i className="mdi mdi-plus" /></span> </span></a>
           <ul className="submenu">
             <li>
         <Link to="/laporan">
@@ -54,7 +62,7 @@ class Menu extends Component {
 
         <li>
         <Link to="/">
-          <Fitur redirect={() => changePage("dashboard")}>
+          <Fitur redirect={() => { this.doLogout()}}>
             <i className="fas fa-sign-out-alt" /><span> Logout </span>
           </Fitur>
           </Link>
@@ -71,4 +79,14 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+const mapStateToProps = state => ({
+  dataUserLogin: state.AReducer.userLogin
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutAction: () => dispatch({ type: "LOGOUT_SUCCESS" })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
