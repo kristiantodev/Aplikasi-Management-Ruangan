@@ -48,6 +48,11 @@ const ruanganReducer = (state = defaultState, action) => {
                     ruangan : dataRuanganBaru
                 }
 
+                case "HAPUS_ALL_RUANGAN":
+                    return {
+                        ruangan : []
+                    }
+
                 case "EDIT_RUANGAN":
 
                     let newRuangan = state.ruangan

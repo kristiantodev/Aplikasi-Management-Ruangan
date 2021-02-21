@@ -42,6 +42,11 @@ const lantaiReducer = (state = defaultState, action) => {
                     lantai : dataLantaiBaru
                 }
 
+                case "HAPUS_ALL_LANTAI":
+                    return {
+                        lantai : []
+                    }
+
                 case "EDIT_LANTAI":
                     
                     console.log("index : ", action.payload.index)

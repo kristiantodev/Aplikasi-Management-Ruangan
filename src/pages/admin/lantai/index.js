@@ -133,6 +133,9 @@ class Lantai extends Component {
               </a>
               <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
                   <i className="fa fa-print" /> Cetak Data</button>
+                  <Button className="btn btn-danger" onClick={this.props.hapusAllLantai}>
+            <i className="fa fa-trash" />&nbsp;Clear Data
+          </Button>
             </div>
   </HeaderContent>
      <IsiBody>
@@ -213,7 +216,8 @@ const mapDispatchToProps = dispatch => {
   return {
     saveLantai: (data)=> dispatch({type:"SAVE_LANTAI", payload: data}),
     hapusLantai: (dataLantaiBaru)=> dispatch({type:"HAPUS_LANTAI", payload: dataLantaiBaru}),
-    editLantai: (data)=> dispatch({type:"EDIT_LANTAI", payload: data})
+    editLantai: (data)=> dispatch({type:"EDIT_LANTAI", payload: data}),
+    hapusAllLantai: ()=> dispatch({type:"HAPUS_ALL_LANTAI"})
   }
 }
 

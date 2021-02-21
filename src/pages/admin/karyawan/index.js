@@ -166,6 +166,9 @@ class Karyawan extends Component {
               </a>
               <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
                   <i className="fa fa-print" /> Cetak Data</button>
+                  <Button className="btn btn-danger" onClick={this.props.hapusAllKaryawan}>
+            <i className="fa fa-trash" />&nbsp;Clear Data
+          </Button>
             </div>
    </HeaderContent>    
     
@@ -304,7 +307,8 @@ const mapDispatchToProps = dispatch => {
   return {
     saveKaryawan: (data)=> dispatch({type:"SAVE_KARYAWAN", payload: data}),
     hapusKaryawan: (dataKaryawanBaru)=> dispatch({type:"HAPUS_KARYAWAN", payload: dataKaryawanBaru}),
-    editKaryawan: (data)=> dispatch({type:"EDIT_KARYAWAN", payload: data})
+    editKaryawan: (data)=> dispatch({type:"EDIT_KARYAWAN", payload: data}),
+    hapusAllKaryawan: ()=> dispatch({type:"HAPUS_ALL_KARYAWAN"})
   }
 }
 

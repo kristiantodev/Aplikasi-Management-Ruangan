@@ -42,6 +42,11 @@ const divisiReducer = (state = defaultState, action) => {
                     divisi : dataDivisiBaru
                 }
 
+                case "HAPUS_ALL_DIVISI":
+                    return {
+                        divisi : []
+                    }
+
                 case "EDIT_DIVISI":
 
                     let newDivisi = state.divisi

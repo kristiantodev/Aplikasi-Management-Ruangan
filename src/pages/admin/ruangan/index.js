@@ -141,6 +141,9 @@ class Ruangan extends Component {
               </a>
               <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
                   <i className="fa fa-print" /> Cetak Data</button>
+                  <Button className="btn btn-danger" onClick={this.props.hapusAllRuangan}>
+            <i className="fa fa-trash" />&nbsp;Clear Data
+          </Button>
             </div>
             </HeaderContent>
             <IsiBody>
@@ -247,7 +250,8 @@ const mapDispatchToProps = dispatch => {
   return {
     saveRuangan: (data)=> dispatch({type:"SAVE_RUANGAN", payload: data}),
     hapusRuangan: (dataRuanganBaru)=> dispatch({type:"HAPUS_RUANGAN", payload: dataRuanganBaru}),
-    editRuangan: (data)=> dispatch({type:"EDIT_RUANGAN", payload: data})
+    editRuangan: (data)=> dispatch({type:"EDIT_RUANGAN", payload: data}),
+    hapusAllRuangan: ()=> dispatch({type:"HAPUS_ALL_RUANGAN"})
   }
 }
 

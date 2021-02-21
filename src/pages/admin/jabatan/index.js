@@ -138,6 +138,9 @@ class Jabatan extends Component {
               </a>
               <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
                   <i className="fa fa-print" /> Cetak Data</button>
+                  <Button className="btn btn-danger" onClick={this.props.hapusAllJabatan}>
+            <i className="fa fa-trash" />&nbsp;Clear Data
+          </Button>
             </div>
           </HeaderContent>
 
@@ -234,7 +237,8 @@ const mapDispatchToProps = dispatch => {
   return {
     saveJabatan: (data)=> dispatch({type:"SAVE_JABATAN", payload: data}),
     hapusJabatan: (dataJabatanBaru)=> dispatch({type:"HAPUS_JABATAN", payload: dataJabatanBaru}),
-    editJabatan: (data)=> dispatch({type:"EDIT_JABATAN", payload: data})
+    editJabatan: (data)=> dispatch({type:"EDIT_JABATAN", payload: data}),
+    hapusAllJabatan: ()=> dispatch({type:"HAPUS_ALL_JABATAN"})
   }
 }
 

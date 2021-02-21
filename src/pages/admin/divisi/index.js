@@ -132,6 +132,9 @@ class Divisi extends Component {
               </a>
               <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
                   <i className="fa fa-print" /> Cetak Data</button>
+                  <Button className="btn btn-danger" onClick={this.props.hapusAllDivisi}>
+            <i className="fa fa-trash" />&nbsp;Clear Data
+          </Button>
             </div>
     </HeaderContent>
     <IsiBody>
@@ -213,7 +216,8 @@ const mapDispatchToProps = dispatch => {
   return {
     saveDivisi: (data)=> dispatch({type:"SAVE_DIVISI", payload: data}),
     hapusDivisi: (dataDivisiBaru)=> dispatch({type:"HAPUS_DIVISI", payload: dataDivisiBaru}),
-    editDivisi: (data)=> dispatch({type:"EDIT_DIVISI", payload: data})
+    editDivisi: (data)=> dispatch({type:"EDIT_DIVISI", payload: data}),
+    hapusAllDivisi: ()=> dispatch({type:"HAPUS_ALL_DIVISI"})
   }
 }
 
