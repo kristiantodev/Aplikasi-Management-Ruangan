@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
 import logo from '../../img.png';
-import { Button } from "../../component"
+import { Button,
+   Input,
+  FormLogin,
+  Fieldset,
+  Select,
+  Option } from "../../component"
 
 class Login extends Component {
     constructor(props) {
@@ -54,31 +59,21 @@ class Login extends Component {
         return (
             <>
 
-    <div className="page-content-wrapper">
-      <div className="row">
-        <div className="col-12">
-          <div className="card m-b-20">
-            <div className="card-body">
+    <FormLogin>
                 <center><img src={logo} height="200" alt="Logo"/><br/></center>
                 <h2><center>LOGIN<br/>
                 APLIKASI MANAGEMEN RUANGAN</center></h2>
-                <input type="text" className="form-control"  placeholder="Masukan Username" name="username" onChange={this.setValueInput}/><br/>
-                <input type="password" className="form-control"  placeholder="Masukan Password" name="password" onChange={this.setValueInput}/><br/>
-                <fieldset className="form-group floating-label-form-group">
-                  <select id="select" name="role" onChange={this.setValueInput} className="custom-select">
-                  <option value="">-- Pilih Role Login--</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Pimpinan">Pimpinan</option>
-                  </select>
-                </fieldset>
+                <Input type="text" placeholder="Masukan Username" name="username" onChange={this.setValueInput}/><br/>
+                <Input type="password"  placeholder="Masukan Password" name="password" onChange={this.setValueInput}/><br/>
+                <Fieldset>
+                  <Select name="role" onChange={this.setValueInput} className="custom-select">
+                  <Option value="">-- Pilih Role Login--</Option>
+                  <Option value="Admin">Admin</Option>
+                  <Option value="Pimpinan">Pimpinan</Option>
+                  </Select>
+                </Fieldset>
             <Button className="btn btn-primary waves-effect waves-light form-control" onClick={() => this.doLogin({username, password, role})}><i className="fas fa-sign-in-alt" /> Login</Button>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    </FormLogin>
             </>
         );
     }

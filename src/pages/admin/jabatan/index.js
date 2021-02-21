@@ -191,7 +191,7 @@ class Jabatan extends Component {
         <div className="modal-body">
         <fieldset className="form-group floating-label-form-group">
         <label>Nama Divisi</label>
-                  <select id="select" value={this.state.namaDivisi} onChange={this.setValue} name="namaDivisi" className="custom-select">
+                  <select  value={this.state.namaDivisi} onChange={this.setValue} name="namaDivisi" className="custom-select">
                   <option value="">-- Pilih Nama Divisi--</option>
                   {
                                 this.props.dataDivisi.map(

@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
-import { Radio } from "../../../component"
+import { 
+    Radio,
+    Select,
+    Input,
+    Button,
+    Option,
+    Label,
+    Fieldset } from "../../../component"
 
 class Karyawan extends Component {
     constructor(props) {
@@ -222,23 +229,23 @@ class Karyawan extends Component {
         </button>
       </div>
         <div className="modal-body">
-        <fieldset className="form-group floating-label-form-group">
-        <label>Nama Divisi</label>
-                  <select id="select" value={this.state.namaDivisi} onChange={this.selectAction} name="namaDivisi" className="custom-select">
-                  <option value="">-- Pilih Nama Divisi--</option>
+        <Fieldset>
+        <Label>Nama Divisi</Label>
+                  <Select value={this.state.namaDivisi} onChange={this.selectAction} name="namaDivisi">
+                  <Option value="">-- Pilih Nama Divisi--</Option>
                   {
                                 this.props.dataDivisi.map(
                                     (Item, idx) =>
                                     <option value={Item.namaDivisi} key={idx}>{Item.namaDivisi}</option>
                                 )
                             }
-                  </select>
-                </fieldset>
+                  </Select>
+                </Fieldset>
 
-                <fieldset className="form-group floating-label-form-group">
-        <label>Nama Jabatan</label> 
-                  <select id="select" value={this.state.namaJabatan} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.setValue} name="namaJabatan" className="custom-select">
-                  <option value="">-- Pilih Nama Jabatan--</option>
+                <Fieldset>
+        <Label>Nama Jabatan</Label> 
+                  <select value={this.state.namaJabatan} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.setValue} name="namaJabatan" className="custom-select">
+                  <Option value="">-- Pilih Nama Jabatan--</Option>
                   {
                                 this.state.selectJabatan.map(
                                     (Item, idx) =>
@@ -246,46 +253,43 @@ class Karyawan extends Component {
                                 )
                             }
                   </select>
-                </fieldset>
+                </Fieldset>
 
-          <fieldset className="form-group floating-label-form-group">
-            <label>ID Karyawan</label>
-            <input type="text" name="id" className="form-control" value={this.state.id} onChange={this.setValue}/>
-          </fieldset>
+          <Fieldset>
+            <Label>ID Karyawan</Label>
+            <Input type="text" name="id" value={this.state.id} onChange={this.setValue}/>
+          </Fieldset>
 
-          <fieldset className="form-group floating-label-form-group">
-            <label>Nama Karyawan</label>
-            <input type="text" name="namaKaryawan" className="form-control" value={this.state.namaKaryawan} onChange={this.setValue}/>
-          </fieldset>
+          <Fieldset>
+            <Label>Nama Karyawan</Label>
+            <Input type="text" name="namaKaryawan" value={this.state.namaKaryawan} onChange={this.setValue}/>
+          </Fieldset>
 
-          <fieldset className="form-group floating-label-form-group">
-            <label>Nama Karyawan</label>
+          <Fieldset>
+            <Label>Jenis Kelamin</Label>
             <br/>
             <Radio type="radio" checked={this.state.jk==="L"?"checked":""} name='jk' value="L" onChange={this.setValue}/>Laki-laki &nbsp;
             <Radio type="radio" checked={this.state.jk==="P"?"checked":""} name='jk' value="P" onChange={this.setValue}/>Perempuan
-          </fieldset>
-    
+          </Fieldset>
 
+          <Fieldset>
+            <Label>Tanggal Masuk</Label>
+            <Input type="date" name="tglMasuk" value={this.state.tglMasuk} onChange={this.setValue}/>
+          </Fieldset>
 
-
-          <fieldset className="form-group floating-label-form-group">
-            <label>Tanggal Masuk</label>
-            <input type="date" name="tglMasuk" className="form-control" value={this.state.tglMasuk} onChange={this.setValue}/>
-          </fieldset>
-
-          <fieldset className="form-group floating-label-form-group">
-            <label>Tanggal Selesai Bekerja</label>
-            <input type="date" name="tglSelesai" className="form-control" value={this.state.tglSelesai} onChange={this.setValue}/>
-          </fieldset>
+          <Fieldset>
+            <Label>Tanggal Selesai Bekerja</Label>
+            <Input type="date" name="tglSelesai" value={this.state.tglSelesai} onChange={this.setValue}/>
+          </Fieldset>
          
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary mr-1" data-dismiss="modal" value="close">
             <i className="fas fa-times" />&nbsp;Keluar
           </button>
-          <button className="btn btn-primary" onClick={this.setKaryawan}>
+          <Button className="btn btn-primary" onClick={this.setKaryawan}>
             <i className="fa fa-save" />&nbsp;Simpan
-          </button>
+          </Button>
         </div>
     </div>
   </div>
