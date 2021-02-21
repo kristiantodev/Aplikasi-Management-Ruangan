@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
+import { 
+  Select,
+  Input,
+  Button,
+  Textarea,
+  Label,
+  Fieldset,
+  IsiBody,
+  HeaderContent, 
+  Content,
+  Modal} from "../../../component"
 
 class Jabatan extends Component {
     constructor(props) {
@@ -83,6 +94,10 @@ class Jabatan extends Component {
   
   }
 
+  print = ()=>{
+    window.print()
+  }
+
   reset = ()=> {
     this.setState({
       jabatanEdit :{}
@@ -110,13 +125,8 @@ class Jabatan extends Component {
 
         return (
             <>
-            <div className="content-page">
-  {/* Start content */}
-  <div className="content">
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="page-title-box">
+            <Content>
+            <HeaderContent>
             <h3 className="page-title"><b><i className="fas fa-user-tie" />&nbsp;Data Jabatan</b></h3>
             <ol className="breadcrumb">
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
@@ -126,18 +136,12 @@ class Jabatan extends Component {
                 <button type="button" className="btn btn-primary waves-effect waves-light">
                   <i className="fa fa-plus" /> Tambah Data</button>
               </a>
+              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {/* end row */}
-    <div className="page-content-wrapper">
-      <div className="row">
-        <div className="col-12">
-          <div className="card m-b-20">
-            <div className="card-body">
-              
+          </HeaderContent>
+
+          <IsiBody>
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -169,17 +173,10 @@ class Jabatan extends Component {
                 }
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div> {/* end col */}
-      </div> {/* end row */}
-    </div>
-    {/* end page content*/}
-  </div> {/* container-fluid */}
-</div>
+          </IsiBody>
+    </Content>
 
-{/* Modal */}
-<div className="modal fade text-left" id="bb" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+<Modal id="bb">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header bg-primary">
@@ -189,9 +186,9 @@ class Jabatan extends Component {
         </button>
       </div>
         <div className="modal-body">
-        <fieldset className="form-group floating-label-form-group">
-        <label>Nama Divisi</label>
-                  <select  value={this.state.namaDivisi} onChange={this.setValue} name="namaDivisi" className="custom-select">
+        <Fieldset>
+        <Label>Nama Divisi</Label>
+                  <Select  value={this.state.namaDivisi} onChange={this.setValue} name="namaDivisi">
                   <option value="">-- Pilih Nama Divisi--</option>
                   {
                                 this.props.dataDivisi.map(
@@ -199,28 +196,28 @@ class Jabatan extends Component {
                                     <option value={Item.namaDivisi} key={idx}>{Item.namaDivisi}</option>
                                 )
                             }
-                  </select>
-                </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-            <label>Nama Jabatan</label>
-            <input type="text" name="namaJabatan" className="form-control" value={this.state.namaJabatan} onChange={this.setValue}/>
-          </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-            <label>Deskripsi</label>
-            <textarea name="deskripsi" className="form-control" value={this.state.deskripsi} onChange={this.setValue}/>
-          </fieldset>
+                  </Select>
+                </Fieldset>
+          <Fieldset>
+            <Label>Nama Jabatan</Label>
+            <Input type="text" name="namaJabatan" className="form-control" value={this.state.namaJabatan} onChange={this.setValue}/>
+          </Fieldset>
+          <Fieldset>
+            <Label>Deskripsi</Label>
+            <Textarea name="deskripsi" value={this.state.deskripsi} onChange={this.setValue}/>
+          </Fieldset>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary mr-1" data-dismiss="modal" value="close">
             <i className="fas fa-times" />&nbsp;Keluar
           </button>
-          <button className="btn btn-primary" onClick={this.setJabatan}>
+          <Button className="btn btn-primary" onClick={this.setJabatan}>
             <i className="fa fa-save" />&nbsp;Simpan
-          </button>
+          </Button>
         </div>
     </div>
   </div>
-</div>
+  </Modal>
 
 
             </>

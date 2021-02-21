@@ -7,5 +7,10 @@ import Fieldset from "./fieldset"
 import Label from "./label"
 import Select from "./select"
 import Option from "./option"
+import IsiBody from "./isibody"
+import HeaderContent from "./headercontent"
+import Content from "./content"
+import Modal from "./modal"
+import Textarea from "./textarea"
 
-export {Fitur, Button, Radio, Input, FormLogin, Fieldset, Label, Select, Option}
+export {Fitur, Button, Textarea, Radio, Input, FormLogin, Fieldset, Label, Select, Option, IsiBody, HeaderContent, Content, Modal}

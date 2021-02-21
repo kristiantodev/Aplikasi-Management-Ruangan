@@ -7,7 +7,11 @@ import {
     Button,
     Option,
     Label,
-    Fieldset } from "../../../component"
+    Fieldset,
+    IsiBody,
+    HeaderContent, 
+    Content,
+    Modal} from "../../../component"
 
 class Karyawan extends Component {
     constructor(props) {
@@ -127,6 +131,10 @@ class Karyawan extends Component {
       })
   }
 
+  print = ()=>{
+    window.print()
+  }
+
     render() {
 
       if("id" in this.state.karyawanEdit){
@@ -144,13 +152,9 @@ class Karyawan extends Component {
 
         return (
             <>
-            <div className="content-page">
-  {/* Start content */}
-  <div className="content">
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="page-title-box">
+           
+  <Content> 
+    <HeaderContent>
             <h3 className="page-title"><b><i className="fas fa-users" />&nbsp;Data Karyawan</b></h3>
             <ol className="breadcrumb">
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
@@ -160,18 +164,12 @@ class Karyawan extends Component {
                 <button type="button" className="btn btn-primary waves-effect waves-light">
                   <i className="fa fa-plus" /> Tambah Data</button>
               </a>
+              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {/* end row */}
-    <div className="page-content-wrapper">
-      <div className="row">
-        <div className="col-12">
-          <div className="card m-b-20">
-            <div className="card-body">
-              
+   </HeaderContent>    
+    
+        <IsiBody>     
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -209,17 +207,12 @@ class Karyawan extends Component {
                 }
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div> {/* end col */}
-      </div> {/* end row */}
-    </div>
-    {/* end page content*/}
-  </div> {/* container-fluid */}
-</div>
+  </IsiBody>  
+  </Content>      
 
-{/* Modal */}
-<div className="modal fade text-left" id="bb" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+
+
+<Modal id="bb">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header bg-primary">
@@ -293,7 +286,7 @@ class Karyawan extends Component {
         </div>
     </div>
   </div>
-</div>
+  </Modal>
 
 
             </>

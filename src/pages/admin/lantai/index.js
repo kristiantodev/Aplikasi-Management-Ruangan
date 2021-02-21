@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
+import { 
+  Input,
+  Button,
+  Textarea,
+  Label,
+  Fieldset,
+  IsiBody,
+  HeaderContent, 
+  Content,
+  Modal} from "../../../component"
 
 class Lantai extends Component {
     constructor(props) {
@@ -94,6 +104,10 @@ class Lantai extends Component {
       })
   }
 
+  print = ()=>{
+    window.print()
+  }
+
     render() {
 
       if("nama" in this.state.lantaiEdit){
@@ -106,13 +120,8 @@ class Lantai extends Component {
 
         return (
             <>
-            <div className="content-page">
-  {/* Start content */}
-  <div className="content">
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="page-title-box">
+  <Content>
+  <HeaderContent>
             <h3 className="page-title"><b><i className="fas fa-chart-line" />&nbsp;Data Lantai</b></h3>
             <ol className="breadcrumb">
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
@@ -122,17 +131,11 @@ class Lantai extends Component {
                 <button type="button" className="btn btn-primary waves-effect waves-light">
                   <i className="fa fa-plus" /> Tambah Data</button>
               </a>
+              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {/* end row */}
-    <div className="page-content-wrapper">
-      <div className="row">
-        <div className="col-12">
-          <div className="card m-b-20">
-            <div className="card-body">
+  </HeaderContent>
+     <IsiBody>
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -162,17 +165,10 @@ class Lantai extends Component {
                 }
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div> {/* end col */}
-      </div> {/* end row */}
-    </div>
-    {/* end page content*/}
-  </div> {/* container-fluid */}
-</div>
+        </IsiBody>
+    </Content>
 
-{/* Modal */}
-<div className="modal fade text-left" id="bb" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+<Modal id="bb">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header bg-primary">
@@ -182,26 +178,26 @@ class Lantai extends Component {
         </button>
       </div>
         <div className="modal-body">
-          <fieldset className="form-group floating-label-form-group">
-            <label>Nama Lantai</label>
-            <input type="text" name="nama" className="form-control" value={this.state.nama} onChange={this.setValue}/>
-          </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-            <label>Deskripsi</label>
-            <textarea name="deskripsi" className="form-control" value={this.state.deskripsi} onChange={this.setValue}/>
-          </fieldset>
+          <Fieldset>
+            <Label>Nama Lantai</Label>
+            <Input type="text" name="nama" value={this.state.nama} onChange={this.setValue}/>
+          </Fieldset>
+          <Fieldset>
+            <Label>Deskripsi</Label>
+            <Textarea name="deskripsi" value={this.state.deskripsi} onChange={this.setValue}/>
+          </Fieldset>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary mr-1" data-dismiss="modal" value="close">
             <i className="fas fa-times" />&nbsp;Keluar
           </button>
-          <button className="btn btn-primary" onClick={this.setLantai}>
+          <Button className="btn btn-primary" onClick={this.setLantai}>
             <i className="fa fa-save" />&nbsp;Simpan
-          </button>
+          </Button>
         </div>
     </div>
   </div>
-</div>
+  </Modal>
 
 
             </>

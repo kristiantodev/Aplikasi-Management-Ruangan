@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
+import { 
+  Select,
+  Option,
+  Input,
+  Button,
+  Textarea,
+  Label,
+  Fieldset,
+  IsiBody,
+  HeaderContent, 
+  Content,
+  Modal} from "../../../component"
 
 class Ruangan extends Component {
     constructor(props) {
@@ -19,6 +31,10 @@ class Ruangan extends Component {
       this.setState({
           [el.target.name]: el.target.value
       })
+  }
+
+  print = ()=>{
+    window.print()
   }
 
   setRuangan= el =>{
@@ -112,13 +128,8 @@ class Ruangan extends Component {
 
         return (
             <>
-            <div className="content-page">
-  {/* Start content */}
-  <div className="content">
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="page-title-box">
+            <Content>
+            <HeaderContent>
             <h3 className="page-title"><b><i className="fas fa-school" />&nbsp;Data Ruangan</b></h3>
             <ol className="breadcrumb">
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
@@ -128,17 +139,11 @@ class Ruangan extends Component {
                 <button type="button" className="btn btn-primary waves-effect waves-light">
                   <i className="fa fa-plus" /> Tambah Data</button>
               </a>
+              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {/* end row */}
-    <div className="page-content-wrapper">
-      <div className="row">
-        <div className="col-12">
-          <div className="card m-b-20">
-            <div className="card-body">
+            </HeaderContent>
+            <IsiBody>
               
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
@@ -173,17 +178,10 @@ class Ruangan extends Component {
                 }
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div> {/* end col */}
-      </div> {/* end row */}
-    </div>
-    {/* end page content*/}
-  </div> {/* container-fluid */}
-</div>
+        </IsiBody>
+    </Content>
 
-{/* Modal */}
-<div className="modal fade text-left" id="bb" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+<Modal id="bb">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header bg-primary">
@@ -193,46 +191,46 @@ class Ruangan extends Component {
         </button>
       </div>
         <div className="modal-body">
-        <fieldset className="form-group floating-label-form-group">
-        <label>Nama Lantai</label>
-                  <select id="select" value={this.state.namaLantai} onChange={this.setValue} name="namaLantai" className="custom-select">
-                  <option value="">-- Pilih Nama Lantai--</option>
+        <Fieldset>
+        <Label>Nama Lantai</Label>
+                  <Select value={this.state.namaLantai} onChange={this.setValue} name="namaLantai">
+                  <Option value="">-- Pilih Nama Lantai--</Option>
                   {
                                 this.props.dataLantai.map(
                                     (Item, idx) =>
                                     <option value={Item.nama} key={idx}>{Item.nama}</option>
                                 )
                             }
-                  </select>
-                </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-            <label>Nama Ruangan</label>
-            <input type="text" name="namaRuangan" className="form-control" value={this.state.namaRuangan} onChange={this.setValue}/>
-          </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-        <label>Kondisi Ruangan</label>
-                  <select id="select" value={this.state.kondisiRuangan} onChange={this.setValue} name="kondisiRuangan" className="custom-select">
-                  <option value="">-- Pilih Kondisi Ruangan--</option>
-                  <option value="Terpakai">Terpakai</option>
-                  <option value="Kosong">Kosong</option>
-                  </select>
-                </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-            <label>Deskripsi</label>
-            <textarea name="deskripsi" className="form-control" value={this.state.deskripsi} onChange={this.setValue}/>
-          </fieldset>
+                  </Select>
+                </Fieldset>
+          <Fieldset>
+            <Label>Nama Ruangan</Label>
+            <Input type="text" name="namaRuangan"value={this.state.namaRuangan} onChange={this.setValue}/>
+          </Fieldset>
+          <Fieldset>
+        <Label>Kondisi Ruangan</Label>
+                  <Select value={this.state.kondisiRuangan} onChange={this.setValue} name="kondisiRuangan">
+                  <Option value="">-- Pilih Kondisi Ruangan--</Option>
+                  <Option value="Terpakai">Terpakai</Option>
+                  <Option value="Kosong">Kosong</Option>
+                  </Select>
+                </Fieldset>
+          <Fieldset>
+            <Label>Deskripsi</Label>
+            <Textarea name="deskripsi" value={this.state.deskripsi} onChange={this.setValue}/>
+          </Fieldset>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary mr-1" data-dismiss="modal" value="close">
             <i className="fas fa-times" />&nbsp;Keluar
           </button>
-          <button className="btn btn-primary" onClick={this.setRuangan}>
+          <Button className="btn btn-primary" onClick={this.setRuangan}>
             <i className="fa fa-save" />&nbsp;Simpan
-          </button>
+          </Button>
         </div>
     </div>
   </div>
-</div>
+</Modal>
 
 
             </>
