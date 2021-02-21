@@ -45,11 +45,6 @@ const jabatanReducer = (state = defaultState, action) => {
                     jabatan : dataJabatanBaru
                 }
 
-                case "HAPUS_ALL_JABATAN":
-                    return {
-                        jabatan : []
-                    }
-
                 case "EDIT_JABATAN":
 
                     let newJabatan = state.jabatan

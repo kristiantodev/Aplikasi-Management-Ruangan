@@ -21,7 +21,8 @@ class Jabatan extends Component {
             deskripsi : "",
             act : 0,
             index : "",
-            jabatanEdit : {}
+            jabatanEdit : {},
+            tampungFilter : this.props.dataJabatan
         }
     }
 
@@ -31,37 +32,38 @@ class Jabatan extends Component {
       })
   }
 
+  searchData= el=>{
+
+    var keyword = el.target.value;
+    const dataFilter = this.props.dataJabatan.filter(x => x.namaJabatan === keyword);
+
+    if(keyword==""){
+      this.setState({
+        tampungFilter : this.props.dataJabatan
+    })
+    }else{
+      this.setState({
+        tampungFilter : dataFilter
+    })
+    }
+
+}
+
+
   setJabatan= el =>{
       let obj = this.state
-  if (this.state.act === 0) {
-
-      if(obj.namaDivisi == "" || obj.namaJabatan == ""){
-          alert("Data wajib diisi !!!")
-      }else{
-        var indexJabatan = this.props.dataJabatan.map(function(e) { return e.namaJabatan; }).indexOf(obj.namaJabatan);
-
-        if(indexJabatan >=0){
-            alert("Nama jabatan sudah ada!! silahkan masukan nama jabatan lain...")
-        }else{
-            this.props.saveJabatan(obj);
-            el.preventDefault()
-            this.clear()
-            alert("Data berhasil disimpan !!")
-            this.props.history.push("/jabatan")
-        }
-        
-      }
+  if (this.state.act === 1) {
       
-  }else{
-
-      this.props.editJabatan(obj)
+    this.props.editJabatan(obj)
       this.setState({
-        act: 0
+        act: 0,
+        tampungFilter : this.props.dataJabatan
       });
       el.preventDefault()
       this.clear()
       alert("Data berhasil diedit !!")
       this.props.history.push("/jabatan")
+      
   }
 
   }
@@ -71,6 +73,9 @@ class Jabatan extends Component {
 
        if (indexHapus !== -1) {
           this.props.hapusJabatan({indexHapus});
+          this.setState({
+            tampungFilter : this.props.dataJabatan
+          })
           this.props.history.push("/jabatan")
        }else{
           alert("Gagal dihapus!!");
@@ -132,19 +137,17 @@ class Jabatan extends Component {
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
             <div className="state-information d-none d-sm-block">
-              <a data-toggle="modal" data-target="#bb">
-                <button type="button" className="btn btn-primary waves-effect waves-light">
-                  <i className="fa fa-plus" /> Tambah Data</button>
-              </a>
-              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
-                  <i className="fa fa-print" /> Cetak Data</button>
-                  <Button className="btn btn-danger" onClick={this.props.hapusAllJabatan}>
-            <i className="fa fa-trash" />&nbsp;Clear Data
-          </Button>
+            <Button className="btn btn-primary" onClick={() => this.props.history.push("/formjabatan")}>
+                     <i className="fa fa-plus" />&nbsp;Tambah Data
+            </Button>
+              <Button className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</Button>
+                 
             </div>
           </HeaderContent>
 
           <IsiBody>
+          <input type="text" onChange={this.searchData} name="cari" placeholder="Masukan nama jabatan yang dicari" className="form-control"/>
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -157,7 +160,7 @@ class Jabatan extends Component {
                 </thead>
                 <tbody>
                 {
-                    this.props.dataJabatan.map((b, index) => {
+                    this.state.tampungFilter.map((b, index) => {
                         return (
 <tr key={index}>
       <td>{index+1}</td>
@@ -237,8 +240,7 @@ const mapDispatchToProps = dispatch => {
   return {
     saveJabatan: (data)=> dispatch({type:"SAVE_JABATAN", payload: data}),
     hapusJabatan: (dataJabatanBaru)=> dispatch({type:"HAPUS_JABATAN", payload: dataJabatanBaru}),
-    editJabatan: (data)=> dispatch({type:"EDIT_JABATAN", payload: data}),
-    hapusAllJabatan: ()=> dispatch({type:"HAPUS_ALL_JABATAN"})
+    editJabatan: (data)=> dispatch({type:"EDIT_JABATAN", payload: data})
   }
 }
 

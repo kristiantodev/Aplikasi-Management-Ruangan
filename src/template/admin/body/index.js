@@ -7,7 +7,11 @@ import {
      Ruangan,
      Divisi,
      Jabatan,
-     Karyawan} from "../../../pages/admin"
+     Karyawan,
+     FormLantai,
+     FormRuangan,
+     FormDivisi,
+     FormJabatan} from "../../../pages/admin"
 
 class Body extends Component {
     constructor(props) {
@@ -27,6 +31,10 @@ class Body extends Component {
             <Route path="/divisi" component={props => <Divisi {...props} />} />
             <Route path="/jabatan" component={props => <Jabatan {...props} />} />
             <Route path="/karyawan" component={props => <Karyawan {...props} />} />
+            <Route path="/formlantai" component={props => <FormLantai {...props} />} />
+            <Route path="/formruangan" component={props => <FormRuangan {...props} />} />
+            <Route path="/formdivisi" component={props => <FormDivisi {...props} />} />
+            <Route path="/formjabatan" component={props => <FormJabatan {...props} />} />
             </Switch>
         )
     }

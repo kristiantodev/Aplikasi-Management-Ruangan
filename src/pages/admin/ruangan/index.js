@@ -23,7 +23,8 @@ class Ruangan extends Component {
             deskripsi : "",
             act : 0,
             index : "",
-            ruanganEdit : {}
+            ruanganEdit : {},
+            tampungFilter : this.props.dataRuangan
         }
     }
 
@@ -33,40 +34,41 @@ class Ruangan extends Component {
       })
   }
 
+  searchData= el=>{
+
+    var keyword = el.target.value;
+    const dataFilter = this.props.dataRuangan.filter(x => x.namaRuangan === keyword);
+
+    if(keyword==""){
+      this.setState({
+        tampungFilter : this.props.dataRuangan
+    })
+    }else{
+      this.setState({
+        tampungFilter : dataFilter
+    })
+    }
+
+}
+
   print = ()=>{
     window.print()
   }
 
   setRuangan= el =>{
       let obj = this.state
-  if (this.state.act === 0) {
+  if (this.state.act === 1) {
 
-      if(obj.namaLantai == "" || obj.namaRuangan == "" || obj.kondisiRuangan == ""){
-          alert("Data wajib diisi !!!")
-      }else{
-        var indexRuang = this.props.dataRuangan.map(function(e) { return e.namaRuangan; }).indexOf(obj.namaRuangan);
-
-        if(indexRuang >=0){
-            alert("Nama Ruangan sudah ada!!")
-        }else{
-            this.props.saveRuangan(obj);
-            el.preventDefault()
-            this.clear()
-            alert("Data berhasil disimpan !!")
-        }
-        
-      }
-      
-  }else{
-
-      this.props.editRuangan(obj)
-      this.setState({
-        act: 0
-      });
-      el.preventDefault()
-      this.clear()
-      alert("Data berhasil diedit !!")
-
+    this.props.editRuangan(obj)
+    this.setState({
+      act: 0,
+      tampungFilter : this.props.dataRuangan
+    });
+    el.preventDefault()
+    this.clear()
+    alert("Data berhasil diedit !!")
+    this.props.history.push("/ruangan")
+    
   }
 
   }
@@ -76,6 +78,9 @@ class Ruangan extends Component {
 
        if (indexHapus !== -1) {
           this.props.hapusRuangan({indexHapus});
+          this.setState({
+            tampungFilter : this.props.dataRuangan
+        })
           this.props.history.push("/ruangan")
        }else{
           alert("Gagal dihapus!!");
@@ -135,19 +140,15 @@ class Ruangan extends Component {
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
             <div className="state-information d-none d-sm-block">
-              <a data-toggle="modal" data-target="#bb">
-                <button type="button" className="btn btn-primary waves-effect waves-light">
-                  <i className="fa fa-plus" /> Tambah Data</button>
-              </a>
-              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
-                  <i className="fa fa-print" /> Cetak Data</button>
-                  <Button className="btn btn-danger" onClick={this.props.hapusAllRuangan}>
-            <i className="fa fa-trash" />&nbsp;Clear Data
-          </Button>
+            <Button className="btn btn-primary" onClick={() => this.props.history.push("/formruangan")}>
+                     <i className="fa fa-plus" />&nbsp;Tambah Data
+            </Button>
+              <Button className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</Button>
             </div>
             </HeaderContent>
             <IsiBody>
-              
+            <input type="text" onChange={this.searchData} name="cari" placeholder="Masukan nama ruangan yang dicari" className="form-control"/>
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -161,7 +162,7 @@ class Ruangan extends Component {
                 </thead>
                 <tbody>
                 {
-                    this.props.dataRuangan.map((b, index) => {
+                    this.state.tampungFilter.map((b, index) => {
                         return (
 <tr key={index}>
       <td>{index+1}</td>
@@ -251,7 +252,6 @@ const mapDispatchToProps = dispatch => {
     saveRuangan: (data)=> dispatch({type:"SAVE_RUANGAN", payload: data}),
     hapusRuangan: (dataRuanganBaru)=> dispatch({type:"HAPUS_RUANGAN", payload: dataRuanganBaru}),
     editRuangan: (data)=> dispatch({type:"EDIT_RUANGAN", payload: data}),
-    hapusAllRuangan: ()=> dispatch({type:"HAPUS_ALL_RUANGAN"})
   }
 }
 

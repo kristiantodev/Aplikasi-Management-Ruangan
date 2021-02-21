@@ -19,7 +19,8 @@ class Lantai extends Component {
             deskripsi : "",
             act : 0,
             index : "",
-            lantaiEdit : {}
+            lantaiEdit : {},
+            tampungFilter : this.props.dataLantai
         }
     }
 
@@ -29,37 +30,39 @@ class Lantai extends Component {
       })
   }
 
+  searchData= el=>{
+
+    var keyword = el.target.value;
+    const lantaiFilter = this.props.dataLantai.filter(x => x.nama === keyword);
+
+    if(keyword==""){
+      this.setState({
+        tampungFilter : this.props.dataLantai
+    })
+    }else{
+      this.setState({
+        tampungFilter : lantaiFilter
+    })
+    }
+
+}
+
   setLantai= el =>{
       let obj = this.state
-  if (this.state.act === 0) {
 
-      if(obj.nama == ""){
-          alert("Nama Lantai wajib diisi !!!")
-      }else{
-        var indexLantai = this.props.dataLantai.map(function(e) { return e.nama; }).indexOf(obj.nama);
-
-        if(indexLantai >=0){
-            alert("Nama lantai sudah ada!!")
-        }else{
-            this.props.saveLantai(obj);
-            el.preventDefault()
-            this.clear()
-            alert("Data berhasil disimpan !!")
-        }
-        
-      }
-      
-  }else{
+  if (this.state.act === 1) {
 
       this.props.editLantai(obj)
       this.setState({
-        act: 0
-      });
-      el.preventDefault()
+        act: 0,
+        tampungFilter : this.props.dataLantai
+      })
+  
       this.clear()
       alert("Data berhasil diedit !!")
+      this.props.history.push("/lantai")
 
-  }
+    }
 
   }
 
@@ -68,6 +71,9 @@ class Lantai extends Component {
 
        if (indexHapus !== -1) {
           this.props.hapusLantai({indexHapus});
+          this.setState({
+            tampungFilter : this.props.dataLantai
+          })
           this.props.history.push("/lantai")
        }else{
           alert("Gagal dihapus!!");
@@ -108,6 +114,26 @@ class Lantai extends Component {
     window.print()
   }
 
+  refresh = ()=>{
+    this.setState({
+      tampungFilter : this.props.dataLantai
+    })
+  }
+
+  clearData = ()=>{
+
+    if(window.confirm("Apakah anda yakin ingin menghapus semua data ini ?")){
+
+    this.props.hapusAllLantai();
+    this.setState({
+      tampungFilter : this.props.dataLantai
+    })
+    alert("Silahkan tekan tombol refresh untuk update")
+    this.props.history.push("/lantai")
+  }
+
+  }
+
     render() {
 
       if("nama" in this.state.lantaiEdit){
@@ -127,18 +153,21 @@ class Lantai extends Component {
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
             <div className="state-information d-none d-sm-block">
-              <a data-toggle="modal" data-target="#bb">
-                <button type="button" className="btn btn-primary waves-effect waves-light">
-                  <i className="fa fa-plus" /> Tambah Data</button>
-              </a>
-              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
-                  <i className="fa fa-print" /> Cetak Data</button>
-                  <Button className="btn btn-danger" onClick={this.props.hapusAllLantai}>
-            <i className="fa fa-trash" />&nbsp;Clear Data
-          </Button>
+            <Button className="btn btn-primary" onClick={() => this.props.history.push("/formlantai")}>
+                     <i className="fa fa-plus" />&nbsp;Tambah Data
+            </Button>
+              <Button className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</Button>
+                  <Button className="btn btn-danger" onClick={() => this.clearData()}>
+                     <i className="fa fa-trash" />&nbsp;Clear Data
+               </Button>
+          <Button onClick={this.refresh} className="btn btn-primary waves-effect waves-light">
+                      <i className="fas fa-redo" /><span> Refresh Page</span>
+                </Button>
             </div>
   </HeaderContent>
      <IsiBody>
+       <input type="text" onChange={this.searchData} name="cari" placeholder="Masukan nama lantai yang dicari" className="form-control"/>
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -150,7 +179,7 @@ class Lantai extends Component {
                 </thead>
                 <tbody>
                 {
-                    this.props.dataLantai.map((b, index) => {
+                    this.state.tampungFilter.map((b, index) => {
                         return (
 <tr key={index}>
       <td>{index+1}</td>
@@ -214,7 +243,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveLantai: (data)=> dispatch({type:"SAVE_LANTAI", payload: data}),
     hapusLantai: (dataLantaiBaru)=> dispatch({type:"HAPUS_LANTAI", payload: dataLantaiBaru}),
     editLantai: (data)=> dispatch({type:"EDIT_LANTAI", payload: data}),
     hapusAllLantai: ()=> dispatch({type:"HAPUS_ALL_LANTAI"})

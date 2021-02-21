@@ -3,13 +3,13 @@ let defaultState = {
 
     {
         namaLantai : "Basement",
-        namaRuangan : "R.Rajawali",
+        namaRuangan : "Rajawali",
         kondisiRuangan : "Terpakai",
         deskripsi : "Sangat Baik"
     },
     {
         namaLantai : "Grand Floor",
-        namaRuangan : "R.Masak",
+        namaRuangan : "Masak",
         kondisiRuangan : "Kosong",
         deskripsi : "Sangat Baik"
     }
@@ -47,11 +47,6 @@ const ruanganReducer = (state = defaultState, action) => {
                 return {
                     ruangan : dataRuanganBaru
                 }
-
-                case "HAPUS_ALL_RUANGAN":
-                    return {
-                        ruangan : []
-                    }
 
                 case "EDIT_RUANGAN":
 
