@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from "react-router-dom"
-import { Header, Menu, Body, Footer } from "./template/tlogin"
+import {Body} from "./template/tlogin"
 
 class AppLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: "dashboard"
+      currentPage: "login"
     }
   }
 

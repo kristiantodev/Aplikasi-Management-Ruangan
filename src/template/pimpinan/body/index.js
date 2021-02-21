@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom"
 
-import { Dashboard, Laporan, Login} from "../../../pages/pimpinan"
+import { Dashboard, Laporan} from "../../../pages/pimpinan"
 
 class Body extends Component {
     constructor(props) {

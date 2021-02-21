@@ -18,8 +18,6 @@ class Menu extends Component {
     }
     
     render() {
-        console.log("menu:", this.props);
-        const { changePage } = this.props
         return (
 
 <>
@@ -47,21 +45,15 @@ class Menu extends Component {
         </li>
 
         <li>
-          <a href="/laporan" className="waves-effect"><i className="fas fa-th-list" /><span> Laporan<span className="float-right menu-arrow"><i className="mdi mdi-plus" /></span> </span></a>
-          <ul className="submenu">
-            <li>
         <Link to="/laporan">
           <Fitur onClick={() => this.props.history.push("/laporan")}>
-            <i className="fa fa-list" /><span> Home</span>
+            <i className="fas fa-list" /><span> Laporan </span>
           </Fitur>
           </Link>
-            </li>
-          
-          </ul>
         </li>
 
         <li>
-        <Link to="/">
+        <Link to="/logout">
           <Fitur redirect={() => { this.doLogout()}}>
             <i className="fas fa-sign-out-alt" /><span> Logout </span>
           </Fitur>

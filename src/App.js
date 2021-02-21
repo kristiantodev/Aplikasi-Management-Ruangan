@@ -6,22 +6,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: "dashboard"
+      
     }
-  }
-
-  goToPage = page => {
-    this.setState({
-      currentPage: page
-    })
   }
 
   render() {
     return (
       <Router>
         <Header />
-        <Menu page={this.state.currentPage} changePage={this.goToPage} />
-        <Body page={this.state.currentPage} />
+        <Menu/>
+        <Body/>
         <Footer />
       </Router>
     );

@@ -18,8 +18,7 @@ class Menu extends Component {
     }
 
     render() {
-        console.log("menu:", this.props.page);
-        const { changePage } = this.props
+       
         return (
 
 <>
@@ -40,7 +39,7 @@ class Menu extends Component {
       <ul className="metismenu" id="side-menu">
         <li>
         <Link to="/">
-          <Fitur redirect={() => changePage("dashboard")}>
+          <Fitur onClick={() => this.props.history.push("/")}>
             <i className="fa fa-home" /><span> Dashboard </span>
           </Fitur>
           </Link>
@@ -52,7 +51,7 @@ class Menu extends Component {
             <li>
         <Link to="/lantai">
           <Fitur onClick={() => this.props.history.push("/lantai")}>
-            <i className="fas fa-chart-line" /><span> Lantai</span>
+            <i className="fas fa-angle-double-right" /><span> Lantai</span>
           </Fitur>
           </Link>
             </li>
@@ -60,7 +59,31 @@ class Menu extends Component {
             <li>
         <Link to="/ruangan">
           <Fitur onClick={() => this.props.history.push("/ruangan")}>
-            <i className="fas fa-school" /><span> Ruangan</span>
+            <i className="fas fa-angle-double-right" /><span> Ruangan</span>
+          </Fitur>
+          </Link>
+            </li>
+
+            <li>
+        <Link to="/divisi">
+          <Fitur onClick={() => this.props.history.push("/divisi")}>
+            <i className="fas fa-angle-double-right" /><span> Divisi</span>
+          </Fitur>
+          </Link>
+            </li>
+
+            <li>
+        <Link to="/jabatan">
+          <Fitur onClick={() => this.props.history.push("/jabatan")}>
+            <i className="fas fa-angle-double-right" /><span> Jabatan</span>
+          </Fitur>
+          </Link>
+            </li>
+
+            <li>
+        <Link to="/karyawan">
+          <Fitur onClick={() => this.props.history.push("/karyawan")}>
+            <i className="fas fa-angle-double-right" /><span> karyawan</span>
           </Fitur>
           </Link>
             </li>
@@ -70,6 +93,14 @@ class Menu extends Component {
 
         <li>
         <Link to="/">
+          <Fitur onClick={() => this.props.history.push("/")}>
+            <i className="fas fa-key" /><span> Hak Akses </span>
+          </Fitur>
+          </Link>
+        </li>
+
+        <li>
+        <Link to="/logout">
           <Fitur redirect={() => { this.doLogout()}}>
             <i className="fas fa-sign-out-alt" /><span> Logout </span>
           </Fitur>

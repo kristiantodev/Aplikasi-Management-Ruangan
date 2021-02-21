@@ -133,7 +133,6 @@ class Lantai extends Component {
         <div className="col-12">
           <div className="card m-b-20">
             <div className="card-body">
-              
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>

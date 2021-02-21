@@ -9,6 +9,9 @@ class Laporan extends Component {
         }
     }
 
+    print = ()=>{
+      window.print()
+    }
     render() {
 
         return (
@@ -25,10 +28,8 @@ class Laporan extends Component {
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
             <div className="state-information d-none d-sm-block">
-              <a data-toggle="modal" data-target="#bb">
-                <button type="button" className="btn btn-primary waves-effect waves-light">
+                <button type="button" className="btn btn-primary waves-effect waves-light" onClick={this.print}>
                   <i className="fa fa-print" /> Cetak Data</button>
-              </a>
             </div>
           </div>
         </div>
@@ -41,6 +42,57 @@ class Laporan extends Component {
           <div className="card m-b-20">
             <div className="card-body">
               
+            <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th width={9}><b>No</b></th>
+                    <th><b>Nama Assets</b></th>
+                    <th><b>Jumlah</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="center">1</td>
+                    <td>Lantai</td>
+                    <td>{this.props.dataLantai.length} Lantai</td>
+                  </tr>
+                  <tr>
+                    <td align="center">2</td>
+                    <td>Ruangan</td>
+                    <td>{this.props.dataRuangan.length} Ruangan</td>
+                  </tr>
+                  <tr>
+                    <td align="center">3</td>
+                    <td>Divisi</td>
+                    <td>{this.props.dataDivisi.length} Divisi</td>
+                  </tr>
+                  <tr>
+                    <td align="center">4</td>
+                    <td>Jabatan</td>
+                    <td>{this.props.dataJabatan.length} Jabatan</td>
+                  </tr>
+                  <tr>
+                    <td align="center">5</td>
+                    <td>Karyawan</td>
+                    <td>Total : {this.props.datakaryawan.length} Karyawan</td>
+                  </tr>
+                  <tr>
+                    <td align="center"></td>
+                    <td>Laki-laki</td>
+                    <td>{this.props.datakaryawan.filter(x => x.jk === "L").length} Karyawan</td>
+                  </tr>
+                  <tr>
+                    <td align="center"></td>
+                    <td>Perempuan</td>
+                    <td>{this.props.datakaryawan.filter(x => x.jk === "P").length} Karyawan</td>
+                  </tr>
+                  <tr>
+                    <td align="center">6</td>
+                    <td>Detail Hak Akses</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
              
             </div>
           </div>
@@ -57,4 +109,18 @@ class Laporan extends Component {
     }
 }
 
-export default Laporan;
+const mapStateToProps = state => ({
+  dataDivisi: state.DReducer.divisi,
+  dataRuangan : state.RReducer.ruangan,
+  dataLantai : state.LReducer.lantai,
+  dataJabatan: state.JReducer.jabatan,
+  datakaryawan: state.KReducer.karyawan
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+   
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Laporan);

@@ -4,14 +4,14 @@ let defaultState = {
     {
         namaLantai : "Basement",
         namaRuangan : "R.Rajawali",
-        kondisiRuangan : "Baik",
-        deskripsi : "Terpakai"
+        kondisiRuangan : "Terpakai",
+        deskripsi : "Sangat Baik"
     },
     {
-        namaLantai : "GF",
+        namaLantai : "Grand Floor",
         namaRuangan : "R.Masak",
-        kondisiRuangan : "Baik",
-        deskripsi : "Kosong"
+        kondisiRuangan : "Kosong",
+        deskripsi : "Sangat Baik"
     }
     ]
 }

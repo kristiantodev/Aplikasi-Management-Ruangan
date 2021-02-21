@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
 
-class Ruangan extends Component {
+class Divisi extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            namaLantai : "",
-            namaRuangan : "",
-            kondisiRuangan:"",
+            namaDivisi : "",
             deskripsi : "",
             act : 0,
             index : "",
-            ruanganEdit : {}
+            divisiEdit : {}
         }
     }
 
@@ -21,46 +19,45 @@ class Ruangan extends Component {
       })
   }
 
-  setRuangan= el =>{
+  setDivisi= el =>{
       let obj = this.state
   if (this.state.act === 0) {
 
-      if(obj.namaLantai == "" || obj.namaRuangan == "" || obj.kondisiRuangan == ""){
-          alert("Data wajib diisi !!!")
+      if(obj.namaDivisi == ""){
+          alert("Nama Divisi wajib diisi !!!")
       }else{
-        var indexRuang = this.props.dataRuangan.map(function(e) { return e.namaRuangan; }).indexOf(obj.namaRuangan);
+        var indexDivisi = this.props.dataDivisi.map(function(e) { return e.namaDivisi; }).indexOf(obj.namaDivisi);
 
-        if(indexRuang >=0){
-            alert("Nama Ruangan sudah ada!!")
+        if(indexDivisi >=0){
+            alert("Nama divisi sudah ada!! Silahkan masukan nama lain...")
         }else{
-            this.props.saveRuangan(obj);
-            el.preventDefault()
+            this.props.saveDivisi(obj);
             this.clear()
             alert("Data berhasil disimpan !!")
+            this.props.history.push("/divisi")
         }
         
       }
       
   }else{
 
-      this.props.editRuangan(obj)
+      this.props.editDivisi(obj)
       this.setState({
         act: 0
       });
-      el.preventDefault()
       this.clear()
       alert("Data berhasil diedit !!")
-
+      this.props.history.push("/divisi")
   }
 
   }
 
-  deleteRuangan = (indexHapus) => {
+  deleteDivisi = (indexHapus) => {
     if(window.confirm("Apakah anda yakin ingin menghapus data ini ?")){
 
        if (indexHapus !== -1) {
-          this.props.hapusRuangan({indexHapus});
-          this.props.history.push("/ruangan")
+          this.props.hapusDivisi({indexHapus});
+          this.props.history.push("/divisi")
        }else{
           alert("Gagal dihapus!!");
        }
@@ -75,37 +72,33 @@ class Ruangan extends Component {
       index: index
     });
 
-    const dataEdit=this.props.dataRuangan[index];
+    const dataEdit=this.props.dataDivisi[index];
   
     this.setState({
-      ruanganEdit: dataEdit
+      divisiEdit: dataEdit
     })
   
   }
 
   reset = ()=> {
     this.setState({
-      ruanganEdit :{}
+      divisiEdit :{}
     })
   }
 
   clear = () => {
       this.setState({ 
-        namaLantai : "",
-            namaRuangan : "",
-            kondisiRuangan:"",
-            deskripsi : "",
+        namaDivisi : "",
+        deskripsi : ""
       })
   }
 
     render() {
 
-      if("namaRuangan" in this.state.ruanganEdit){
+      if("namaDivisi" in this.state.divisiEdit){
         this.setState({
-        namaLantai: this.state.ruanganEdit.namaLantai,
-        namaRuangan: this.state.ruanganEdit.namaRuangan,
-        kondisiRuangan: this.state.ruanganEdit.kondisiRuangan,
-        deskripsi : this.state.ruanganEdit.deskripsi    
+        namaDivisi: this.state.divisiEdit.namaDivisi,
+        deskripsi : this.state.divisiEdit.deskripsi    
         })
         this.reset();
     }
@@ -119,7 +112,7 @@ class Ruangan extends Component {
       <div className="row">
         <div className="col-sm-12">
           <div className="page-title-box">
-            <h3 className="page-title"><b><i className="fas fa-school" />&nbsp;Data Ruangan</b></h3>
+            <h3 className="page-title"><b><i className="fab fa-pied-piper-alt" />&nbsp;Data Divisi</b></h3>
             <ol className="breadcrumb">
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
@@ -144,26 +137,22 @@ class Ruangan extends Component {
                 <thead>
                   <tr>
                     <th width={9}><b>No</b></th>
-                    <th><b>Nama Lantai</b></th>
-                    <th><b>Nama Ruangan</b></th>
-                    <th><b>Kondisi Ruangan</b></th>
+                    <th><b>Nama Divisi</b></th>
                     <th><b>Deskripsi</b></th>
                     <th width={150}><b>Aksi</b></th>
                   </tr>
                 </thead>
                 <tbody>
                 {
-                    this.props.dataRuangan.map((b, index) => {
+                    this.props.dataDivisi.map((b, index) => {
                         return (
 <tr key={index}>
       <td>{index+1}</td>
-       <td>{b.namaLantai}</td>
-       <td>{b.namaRuangan}</td>
-       <td>{b.kondisiRuangan}</td>
+       <td>{b.namaDivisi}</td>
        <td>{b.deskripsi}</td>
        <td>
        <button onClick={() =>{this.getEdit(index)} }  data-toggle="modal" data-target="#bb" className="btn btn-primary waves-effect waves-light"><span data-toggle="tooltip" data-original-title="Ubah"><font color="white"><i className="fas fa-pencil-alt" /></font></span></button>
-       <button onClick={() =>{this.deleteRuangan(index)} } data-toggle="tooltip" className="btn btn-danger waves-effect waves-light tombol-hapus" data-original-title="Hapus"><span className="icon-label"><i className="fa fa-trash" /> </span><span className="btn-text" /></button>
+       <button onClick={() =>{this.deleteDivisi(index)} } data-toggle="tooltip" className="btn btn-danger waves-effect waves-light tombol-hapus" data-original-title="Hapus"><span className="icon-label"><i className="fa fa-trash" /> </span><span className="btn-text" /></button>
                     
        </td>
       </tr>                
@@ -187,36 +176,16 @@ class Ruangan extends Component {
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header bg-primary">
-        <h6 className="modal-title"><font color="white">Form Data Ruangan</font></h6>
+        <h6 className="modal-title"><font color="white">Form Data Divisi</font></h6>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
         <div className="modal-body">
-        <fieldset className="form-group floating-label-form-group">
-        <label>Nama Lantai</label>
-                  <select id="select" value={this.state.namaLantai} onChange={this.setValue} name="namaLantai" className="custom-select">
-                  <option value="">-- Pilih Nama Lantai--</option>
-                  {
-                                this.props.dataLantai.map(
-                                    (Item, idx) =>
-                                    <option value={Item.nama} key={idx}>{Item.nama}</option>
-                                )
-                            }
-                  </select>
-                </fieldset>
           <fieldset className="form-group floating-label-form-group">
-            <label>Nama Ruangan</label>
-            <input type="text" name="namaRuangan" className="form-control" value={this.state.namaRuangan} onChange={this.setValue}/>
+            <label>Nama Divisi</label>
+            <input type="text" name="namaDivisi" className="form-control" value={this.state.namaDivisi} onChange={this.setValue}/>
           </fieldset>
-          <fieldset className="form-group floating-label-form-group">
-        <label>Kondisi Ruangan</label>
-                  <select id="select" value={this.state.kondisiRuangan} onChange={this.setValue} name="kondisiRuangan" className="custom-select">
-                  <option value="">-- Pilih Kondisi Ruangan--</option>
-                  <option value="Terpakai">Terpakai</option>
-                  <option value="Kosong">Kosong</option>
-                  </select>
-                </fieldset>
           <fieldset className="form-group floating-label-form-group">
             <label>Deskripsi</label>
             <textarea name="deskripsi" className="form-control" value={this.state.deskripsi} onChange={this.setValue}/>
@@ -226,7 +195,7 @@ class Ruangan extends Component {
           <button type="button" className="btn btn-secondary mr-1" data-dismiss="modal" value="close">
             <i className="fas fa-times" />&nbsp;Keluar
           </button>
-          <button className="btn btn-primary" onClick={this.setRuangan}>
+          <button className="btn btn-primary" onClick={this.setDivisi}>
             <i className="fa fa-save" />&nbsp;Simpan
           </button>
         </div>
@@ -241,16 +210,15 @@ class Ruangan extends Component {
 }
 
 const mapStateToProps = state => ({
-  dataLantai: state.LReducer.lantai,
-  dataRuangan: state.RReducer.ruangan
+  dataDivisi: state.DReducer.divisi
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveRuangan: (data)=> dispatch({type:"SAVE_RUANGAN", payload: data}),
-    hapusRuangan: (dataRuanganBaru)=> dispatch({type:"HAPUS_RUANGAN", payload: dataRuanganBaru}),
-    editRuangan: (data)=> dispatch({type:"EDIT_RUANGAN", payload: data})
+    saveDivisi: (data)=> dispatch({type:"SAVE_DIVISI", payload: data}),
+    hapusDivisi: (dataDivisiBaru)=> dispatch({type:"HAPUS_DIVISI", payload: dataDivisiBaru}),
+    editDivisi: (data)=> dispatch({type:"EDIT_DIVISI", payload: data})
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ruangan);
+export default connect(mapStateToProps, mapDispatchToProps)(Divisi);
