@@ -11,7 +11,7 @@ import {
     HeaderContent, 
     Content,
     Check} from "../../../component"
-import ruangan from '../ruangan';
+
 
 class FormHakAkses extends Component {
     constructor(props) {
@@ -35,7 +35,8 @@ class FormHakAkses extends Component {
        ],
         }
     }
-    // hak_akses[0].namaRuangan[0].ruangan
+  
+
     setValue= el=>{
       this.setState({
           [el.target.name]: el.target.value
@@ -45,21 +46,21 @@ class FormHakAkses extends Component {
     setHakAkses= el =>{
       let obj = this.state
 
-      if(obj.id == "" || obj.tglBerlaku == "" || obj.tglBerakhir == ""){
+      if(obj.id == "" || obj.tglBerlaku == "" || obj.tglBerakhir == "" || this.state.hak_akses[0].namaLantai == "" || this.state.hak_akses[0].namaRuangan[0].ruangan == ""){
           alert("Data wajib diisi !!!")
       }else{
         var index = this.props.dataHakAkses.map(function(e) { return e.id; }).indexOf(obj.id);
 
-        // if(index >=0){
-        //     alert("ID Karyawan sudah mempunyai akses!! silahkan masukan ID lain...")
-        // }else{
+        if(index >=0){
+            alert("ID Karyawan sudah mempunyai akses!! silahkan masukan ID lain...")
+        }else{
             console.log(obj)
             this.props.saveHakAkses(obj);
             el.preventDefault()
             this.clear()
             alert("Data berhasil disimpan !!")
             this.props.history.push("/hakakses")
-        // }
+        }
         
       }
     
@@ -111,9 +112,7 @@ class FormHakAkses extends Component {
         this.state.hak_akses[0].namaRuangan[0].ruangan = namaRuangan
         console.log("namaruangan :", this.state.hak_akses.namaRuangan)
         console.log("nama ruanga objec :", this.state.hak_akses[0].namaRuangan[0].ruangan)
-
       }
-   
       
     }
 

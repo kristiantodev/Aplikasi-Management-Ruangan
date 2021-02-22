@@ -18,7 +18,26 @@ class HakAkses extends Component {
         super(props);
         this.state = {
             tampungFilter : this.props.dataHakAkses,
-            detailHakAkses : {}
+            detailHakAkses : {},
+            index : "",
+            id : "",
+            namaKaryawan : "",
+            namaDivisi : "",
+            namaJabatan : "",
+            tglBerlaku : "",
+            tglBerakhir : "",
+            hak_akses : [
+             {
+              namaLantai : "",
+              namaRuangan : [
+                  {
+                      ruangan : ""
+                  }
+              ]
+          }
+      ],
+            hakAksesEdit : {},
+            disabled: true
         }
     }
 
@@ -44,6 +63,22 @@ class HakAkses extends Component {
     }
 
 }
+
+setHakAkses= el =>{
+  let obj = this.state
+
+this.props.editHakAkses(obj)
+
+this.setState({
+  tampungFilter:this.props.dataHakAkses
+});
+
+this.clear()
+alert("Data berhasil diedit !!")
+this.props.history.push("/hakakses")
+
+}
+
 
 deleteHakAkses = (indexHapus) => {
     if(window.confirm("Apakah anda yakin ingin menghapus data ini ?")){
@@ -71,7 +106,86 @@ deleteHakAkses = (indexHapus) => {
   
   } 
 
+  getEdit = (index) => {
+    this.setState({
+      index: index
+    });
+
+    const dataEdit=this.props.dataHakAkses[index];
+  
+    this.setState({
+      hakAksesEdit: dataEdit
+    })
+  
+  }
+
+  reset = ()=> {
+    this.setState({
+      hakAksesEdit :{}
+    })
+  }
+
+  selectValue= el=>{
+    
+    var indexKaryawan = this.props.dataKaryawan.map(function(e) { return e.id; }).indexOf(el.target.value);
+    const namaKaryawan=this.props.dataKaryawan[indexKaryawan].namaKaryawan;
+    const namaDivisi=this.props.dataKaryawan[indexKaryawan].namaDivisi;
+    const namaJabatan = this.props.dataKaryawan[indexKaryawan].namaJabatan;
+
+    this.setState({
+        namaKaryawan : namaKaryawan,
+        namaDivisi : namaDivisi,
+        namaJabatan : namaJabatan,
+        [el.target.name] : el.target.value
+    })
+
+      }
+
+      setCheckLantai = (el) => {
+    
+        if(el.target.checked === true) {
+          this.state.hak_akses[0].namaLantai = el.target.value;
+          console.log("nama lantai :", this.state.hak_akses.namaLantai)
+      }
+        
+      }
+  
+      setCheckRuang = (el) => {
+        if(el.target.checked === true){
+          let namaRuangan = []
+          namaRuangan.push(el.target.value);
+          this.state.hak_akses[0].namaRuangan[0].ruangan = namaRuangan
+          console.log("namaruangan :", this.state.hak_akses.namaRuangan)
+          console.log("nama ruanga objec :", this.state.hak_akses[0].namaRuangan[0].ruangan)
+        }
+        
+      }
+
+      clear = () => {
+        this.setState({ 
+             id : "",
+             namaKaryawan : "",
+             namaDivisi : "",
+             namaJabatan : "",
+             tglBerlaku : "",
+             tglBerakhir : ""
+        })
+    }
+
     render() {
+
+      if("id" in this.state.hakAksesEdit){
+        this.setState({
+            id: this.state.hakAksesEdit.id,
+            namaKaryawan : this.state.hakAksesEdit.namaKaryawan,
+            namaDivisi: this.state.hakAksesEdit.namaDivisi,
+            namaJabatan : this.state.hakAksesEdit.namaJabatan,
+            tglBerlaku: this.state.hakAksesEdit.tglBerlaku,
+            tglBerakhir : this.state.hakAksesEdit.tglBerakhir
+        })
+        this.reset();
+    }
+
        console.log("Data : ", this.props.dataHakAkses)
         return (
             <>
@@ -135,7 +249,7 @@ deleteHakAkses = (indexHapus) => {
        <td>{b.tglBerakhir}</td>
        <td>{b.status}</td>
        <td>
-       <button data-toggle="modal" data-target="#bb" className="btn btn-primary waves-effect waves-light"><font color="white"><i className="fas fa-pencil-alt" /></font></button>
+       <button onClick={() =>{this.getEdit(index)} } data-toggle="modal" data-target="#bb" className="btn btn-primary waves-effect waves-light"><font color="white"><i className="fas fa-pencil-alt" /></font></button>
        <button onClick={() =>{this.deleteHakAkses(index)} } className="btn btn-danger waves-effect waves-light"><span className="icon-label"><i className="fa fa-trash" /> </span></button>
        <button onClick={() =>{this.detailData(index)} } data-toggle="modal" data-target="#detail" className="btn btn-success waves-effect waves-light"><font color="white"><i className="fas fa-folder-open" /> Detail</font></button>
                     
@@ -152,6 +266,67 @@ deleteHakAkses = (indexHapus) => {
               </table>
   </IsiBody>  
   </Content>
+
+  <Modal id="bb">
+<div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header bg-primary">
+        <h6 className="modal-title"><font color="white">Detail Hak Akses Ruangan</font></h6>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+        <div className="modal-body">
+        <Fieldset>
+        <Label>Karyawan<font color="red">*</font></Label>
+                  <select className="form-control" value={this.state.id} onChange={this.selectValue} name="id" disabled={(this.state.disabled)? "disabled" : ""}>
+                  <Option value="">-- Pilih Karyawan--</Option>
+                  {
+                                this.props.dataKaryawan.map(
+                                    (Item, idx) =>
+                                    <option value={Item.id} key={idx}>{Item.id} - {Item.namaKaryawan}</option>
+                                )
+                            }
+                  </select>
+                </Fieldset>
+
+            <Input type="hidden" value={this.state.namaKaryawan} name="namaKaryawan" onChange={this.setValue}/>
+            <Input type="hidden" value={this.state.namaDivisi} name="namaDivisi" onChange={this.setValue}/>
+            <Input type="hidden" value={this.state.namaJabatan} name="namaJabatan" onChange={this.setValue}/>
+
+          <Fieldset>
+            <Label>Tanggal Berlaku<font color="red">*</font></Label>
+            <Input type="date" value={this.state.tglBerlaku} name="tglBerlaku" onChange={this.setValue}/>
+          </Fieldset>
+
+          <Fieldset>
+            <Label>Tanggal Berakhir<font color="red">*</font></Label>
+            <Input type="date" name="tglBerakhir" value={this.state.tglBerakhir} onChange={this.setValue}/>
+          </Fieldset>
+
+          <Fieldset>
+            <Label>Hak Akses<font color="red">*</font></Label><br/>
+            {
+                    this.props.dataLantai.map(
+                    (Item, idx) =>
+                    <>
+                        <input type="checkbox"  name="namaLantai" onClick={this.setCheckLantai} value={Item.nama} key={idx}/> {Item.nama}<br/>
+                        {this.props.dataRuangan.filter(ruang => ruang.namaLantai == Item.nama).map((fRuang, id) =>
+                          <li><input type="checkbox"  name="namaRuangan" onClick={this.setCheckRuang} value={fRuang.namaRuangan} key={id}/> {fRuang.namaRuangan}<br/></li>
+                        )}
+                    </>
+                    
+                    )
+            }
+          </Fieldset>
+         
+          <Button className="btn btn-primary" onClick={this.setHakAkses}>
+            <i className="fa fa-save" />&nbsp;Simpan
+          </Button>
+        </div>
+    </div>
+  </div>
+  </Modal>
 
   <Modal id="detail">
 <div className="modal-dialog" role="document">
@@ -240,13 +415,16 @@ const mapStateToProps = state => ({
   dataDivisi: state.DReducer.divisi,
   dataJabatan: state.JReducer.jabatan,
   dataKaryawan: state.KReducer.karyawan,
+  dataLantai: state.LReducer.lantai,
+  dataRuangan: state.RReducer.ruangan,
   dataHakAkses : state.HAReducer.hakakses
 })
 
 const mapDispatchToProps = dispatch => {
   return {
     saveHakAkses: (data)=> dispatch({type:"SAVE_HAK_AKSES", payload: data}),
-    hapusHakAkses: (dataHakBaru)=> dispatch({type:"HAPUS_HAK_AKSES", payload: dataHakBaru})
+    hapusHakAkses: (dataHakBaru)=> dispatch({type:"HAPUS_HAK_AKSES", payload: dataHakBaru}),
+    editHakAkses: (data)=> dispatch({type:"EDIT_HAK_AKSES", payload: data})
   }
 }
 
