@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from "redux"
+import {combineReducers } from "redux"
 import AuthReducer from "./auth"
 import UserReducer from "./login"
 import LantaiReducer from "./lantai"
@@ -8,7 +8,7 @@ import JabatanReducer from "./jabatan"
 import KaryawanReducer from "./karyawan"
 import HakAksesReducer from "./hakakses"
 
-let store = createStore(combineReducers({
+let reducer = combineReducers({
     AReducer: AuthReducer,
     UReducer: UserReducer,
     LReducer: LantaiReducer,
@@ -17,6 +17,6 @@ let store = createStore(combineReducers({
     JReducer: JabatanReducer,
     KReducer : KaryawanReducer,
     HAReducer : HakAksesReducer
-}))
+})
 
-export default store
+export default reducer

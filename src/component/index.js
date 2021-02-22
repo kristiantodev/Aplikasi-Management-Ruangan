@@ -12,5 +12,6 @@ import HeaderContent from "./headercontent"
 import Content from "./content"
 import Modal from "./modal"
 import Textarea from "./textarea"
+import Check from "./check"
 
-export {Fitur, Button, Textarea, Radio, Input, FormLogin, Fieldset, Label, Select, Option, IsiBody, HeaderContent, Content, Modal}
+export {Fitur, Check, Button, Textarea, Radio, Input, FormLogin, Fieldset, Label, Select, Option, IsiBody, HeaderContent, Content, Modal}

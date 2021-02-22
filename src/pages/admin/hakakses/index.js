@@ -83,7 +83,7 @@ deleteHakAkses = (indexHapus) => {
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
             <div className="state-information d-none d-sm-block">
-            <Button className="btn btn-primary" onClick={() => this.props.history.push("/formkaryawan")}>
+            <Button className="btn btn-primary" onClick={() => this.props.history.push("/formhakakses")}>
                      <i className="fa fa-plus" />&nbsp;Tambah Data
             </Button>
                   

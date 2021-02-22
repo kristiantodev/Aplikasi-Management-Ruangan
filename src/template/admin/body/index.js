@@ -13,7 +13,8 @@ import {
      FormDivisi,
      FormJabatan,
      FormKaryawan,
-     HakAkses} from "../../../pages/admin"
+     HakAkses,
+     FormHakAkses} from "../../../pages/admin"
 
 class Body extends Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class Body extends Component {
             <Route path="/formjabatan" component={props => <FormJabatan {...props} />} />
             <Route path="/formkaryawan" component={props => <FormKaryawan {...props} />} />
             <Route path="/hakakses" component={props => <HakAkses {...props} />} />
+            <Route path="/formhakakses" component={props => <FormHakAkses {...props} />} />
             </Switch>
         )
     }
