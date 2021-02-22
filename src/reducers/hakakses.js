@@ -3,6 +3,9 @@ let defaultState = {
 
     {
         id : "K-0001",
+        namaKaryawan: "Kristianto",
+        namaDivisi: "Marketing",
+        namaJabatan: "Head of Marketing",
         tglBerlaku : "2020-10-10",
         tglBerakhir: "2021-10-10",
         hak_akses : [
@@ -31,6 +34,9 @@ let defaultState = {
 
     {
         id : "K-0002",
+        namaKaryawan: "Dewi",
+        namaDivisi: "Marketing",
+        namaJabatan: "Head of Marketing",
         tglBerlaku : "2020-10-10",
         tglBerakhir: "2021-01-10",
         hak_akses : [
@@ -54,7 +60,17 @@ const hakAksesReducer = (state = defaultState, action) => {
         case "SAVE_HAK_AKSES":
             
             return defaultState
-            
+           
+            case "HAPUS_HAK_AKSES":
+
+                console.log("index : ", action.payload.indexHapus)
+                let dataAksesBaru = state.hakakses
+                dataAksesBaru.splice(action.payload.indexHapus, 1);
+
+                return {
+                    hakakses : dataAksesBaru
+                }
+
             case "CLEAR_DATA":
                 return defaultState
             default:
