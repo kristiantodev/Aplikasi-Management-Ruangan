@@ -57,11 +57,6 @@ const karyawanReducer = (state = defaultState, action) => {
                     karyawan : dataKaryawanBaru
                 }
 
-                case "HAPUS_ALL_KARYAWAN":
-                    return {
-                        karyawan : []
-                    }
-
                 case "EDIT_KARYAWAN":
 
                     let newKaryawan = state.karyawan

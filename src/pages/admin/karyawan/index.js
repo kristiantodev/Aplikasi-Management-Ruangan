@@ -28,7 +28,8 @@ class Karyawan extends Component {
             index : "",
             karyawanEdit : {},
             disabled: true,
-            selectJabatan : [] 
+            selectJabatan : [],
+            tampungFilter : this.props.dataKaryawan 
         }
     }
 
@@ -37,6 +38,23 @@ class Karyawan extends Component {
           [el.target.name]: el.target.value
       })
   }
+
+  searchData= el=>{
+
+    var keyword = el.target.value;
+    const dataFilter = this.props.dataKaryawan.filter(x => x.namaKaryawan === keyword);
+
+    if(keyword==""){
+      this.setState({
+        tampungFilter : this.props.dataKaryawan
+    })
+    }else{
+      this.setState({
+        tampungFilter : dataFilter
+    })
+    }
+
+}
 
   selectAction= el=>{
     var nama = el.target.value
@@ -51,36 +69,20 @@ class Karyawan extends Component {
 
   setKaryawan= el =>{
       let obj = this.state
-  if (this.state.act === 0) {
-
-      if(obj.namaDivisi == "" || obj.namaJabatan == "" || obj.id == "" || obj.namaKaryawan == "" || obj.jk == ""){
-          alert("Data wajib diisi !!!")
-      }else{
-        var indexKaryawan = this.props.dataKaryawan.map(function(e) { return e.id; }).indexOf(obj.id);
-
-        if(indexKaryawan >=0){
-            alert("ID Karyawan sudah ada!! silahkan masukan ID lain...")
-        }else{
-            this.props.saveKaryawan(obj);
-            el.preventDefault()
-            this.clear()
-            alert("Data berhasil disimpan !!")
-            this.props.history.push("/karyawan")
-        }
+  if (this.state.act === 1) {
+    this.props.editKaryawan(obj)
+    this.setState({
+        act: 0,
+        tampungFilter : this.props.dataKaryawan
+        });
+         
+        el.preventDefault()
+        this.clear()
+        alert("Data berhasil diedit !!")
+        this.props.history.push("/karyawan")
         
       }
-      
-  }else{
 
-      this.props.editKaryawan(obj)
-      this.setState({
-        act: 0
-      });
-      el.preventDefault()
-      this.clear()
-      alert("Data berhasil diedit !!")
-      this.props.history.push("/karyawan")
-  }
 
   }
 
@@ -89,6 +91,9 @@ class Karyawan extends Component {
 
        if (indexHapus !== -1) {
           this.props.hapusKaryawan({indexHapus});
+          this.setState({
+            tampungFilter : this.props.dataKaryawan
+          })
           this.props.history.push("/karyawan")
        }else{
           alert("Gagal dihapus!!");
@@ -160,19 +165,17 @@ class Karyawan extends Component {
               <li className="breadcrumb-item active">Sistem Management Ruangan</li>
             </ol>
             <div className="state-information d-none d-sm-block">
-              <a data-toggle="modal" data-target="#bb">
-                <button type="button" className="btn btn-primary waves-effect waves-light">
-                  <i className="fa fa-plus" /> Tambah Data</button>
-              </a>
-              <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.print}>
-                  <i className="fa fa-print" /> Cetak Data</button>
-                  <Button className="btn btn-danger" onClick={this.props.hapusAllKaryawan}>
-            <i className="fa fa-trash" />&nbsp;Clear Data
-          </Button>
+            <Button className="btn btn-primary" onClick={() => this.props.history.push("/formkaryawan")}>
+                     <i className="fa fa-plus" />&nbsp;Tambah Data
+            </Button>
+              <Button className="btn btn-success waves-effect waves-light" onClick={this.print}>
+                  <i className="fa fa-print" /> Cetak Data</Button>
+                  
             </div>
    </HeaderContent>    
     
         <IsiBody>     
+        <input type="text" onChange={this.searchData} name="cari" placeholder="Masukan nama karyawan yang dicari" className="form-control"/>
               <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
@@ -188,7 +191,7 @@ class Karyawan extends Component {
                 </thead>
                 <tbody>
                 {
-                    this.props.dataKaryawan.map((b, index) => {
+                    this.state.tampungFilter.map((b, index) => {
                         return (
 <tr key={index}>
        <td>{b.id}</td>
@@ -307,8 +310,7 @@ const mapDispatchToProps = dispatch => {
   return {
     saveKaryawan: (data)=> dispatch({type:"SAVE_KARYAWAN", payload: data}),
     hapusKaryawan: (dataKaryawanBaru)=> dispatch({type:"HAPUS_KARYAWAN", payload: dataKaryawanBaru}),
-    editKaryawan: (data)=> dispatch({type:"EDIT_KARYAWAN", payload: data}),
-    hapusAllKaryawan: ()=> dispatch({type:"HAPUS_ALL_KARYAWAN"})
+    editKaryawan: (data)=> dispatch({type:"EDIT_KARYAWAN", payload: data})
   }
 }
 
