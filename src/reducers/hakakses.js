@@ -53,6 +53,8 @@ let defaultState = {
     }
 
     ]
+
+    
 }
 
 const hakAksesReducer = (state = defaultState, action) => {

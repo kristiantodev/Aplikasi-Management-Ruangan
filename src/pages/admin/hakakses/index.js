@@ -17,7 +17,8 @@ class HakAkses extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tampungFilter : this.props.dataHakAkses
+            tampungFilter : this.props.dataHakAkses,
+            detailHakAkses : {}
         }
     }
 
@@ -61,8 +62,17 @@ deleteHakAkses = (indexHapus) => {
   
   } 
 
-    render() {
+  detailData = (indexData) => {
+  
+    const dataDetail=this.props.dataHakAkses[indexData];
+    this.setState({
+        detailHakAkses : dataDetail
+    })
+  
+  } 
 
+    render() {
+       console.log("Data : ", this.props.dataHakAkses)
         return (
             <>
            
@@ -127,7 +137,7 @@ deleteHakAkses = (indexHapus) => {
        <td>
        <button data-toggle="modal" data-target="#bb" className="btn btn-primary waves-effect waves-light"><font color="white"><i className="fas fa-pencil-alt" /></font></button>
        <button onClick={() =>{this.deleteHakAkses(index)} } className="btn btn-danger waves-effect waves-light"><span className="icon-label"><i className="fa fa-trash" /> </span></button>
-       <button data-toggle="modal" data-target="#bb" className="btn btn-success waves-effect waves-light"><font color="white"><i className="fas fa-folder-open" /> Detail</font></button>
+       <button onClick={() =>{this.detailData(index)} } data-toggle="modal" data-target="#detail" className="btn btn-success waves-effect waves-light"><font color="white"><i className="fas fa-folder-open" /> Detail</font></button>
                     
        </td>
       </tr>                
@@ -141,7 +151,71 @@ deleteHakAkses = (indexHapus) => {
                 </tbody>
               </table>
   </IsiBody>  
-  </Content>      
+  </Content>
+
+  <Modal id="detail">
+<div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header bg-primary">
+        <h6 className="modal-title"><font color="white">Detail Hak Akses Ruangan</font></h6>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+        <div className="modal-body">
+        <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th colSpan="3"><b>Detail Hak Akses Ruangan</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.id}</td>
+                </tr>
+                <tr>
+                    <td>Nama</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.namaKaryawan}</td>
+                </tr>
+                <tr>
+                    <td>Divisi</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.namaDivisi}</td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.namaJabatan}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Berlaku</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.tglBerlaku}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Berakhir</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.tglBerakhir}</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>:</td>
+                    <td>{this.state.detailHakAkses.status}</td>
+                </tr>
+                <tr>
+                    <td>Hak Akses Ruangan</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+  </div>
+  </Modal>     
 
             </>
         );
