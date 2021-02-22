@@ -165,7 +165,7 @@ deleteHakAkses = (indexHapus) => {
         <div className="modal-body">
         <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
-                  <tr>
+                  <tr align="center">
                     <th colSpan="3"><b>Detail Hak Akses Ruangan</b></th>
                   </tr>
                 </thead>
@@ -208,7 +208,21 @@ deleteHakAkses = (indexHapus) => {
                 <tr>
                     <td>Hak Akses Ruangan</td>
                     <td>:</td>
-                    <td></td>
+                    <td>{
+                        this.state.detailHakAkses.hak_akses != undefined &&
+                        this.state.detailHakAkses.hak_akses.map((el,i) => {
+                          return(
+                            <ul>
+                              <b key={i}>Lantai : {el.namaLantai}</b>
+                              {el.namaRuangan.map((elm, u) => {
+                                return(
+                                  <div key={u}>{elm.ruangan}</div>
+                                )
+                              })}
+                            </ul>
+                          )
+                        })
+                      }</td>
                 </tr>
                 </tbody>
               </table>

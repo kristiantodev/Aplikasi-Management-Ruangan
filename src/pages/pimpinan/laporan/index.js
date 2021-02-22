@@ -41,8 +41,59 @@ class Laporan extends Component {
         <div className="col-12">
           <div className="card m-b-20">
             <div className="card-body">
-              
-            <table id="datatable" className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+
+            <h6>Data Hak Akses Ruangan :</h6>
+            <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th><b>ID Karyawan</b></th>
+                    <th><b>Nama</b></th>
+                    <th><b>Divisi</b></th>
+                    <th><b>Jabatan</b></th>
+                    <th><b>Akses</b></th>
+                    <th><b>Tgl Berlaku</b></th>
+                    <th><b>Tgl Berakhir</b></th>
+                    <th><b>Status</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    this.props.dataHakAkses.map((b, index) => {
+                        return (
+<tr key={index}>
+       <td>{b.id}</td>
+       <td>{b.namaKaryawan}</td>
+       <td>{b.namaDivisi}</td>
+       <td>{b.namaJabatan}</td>
+       <td>{b.hak_akses.map((l, idl) => {
+           return (
+               <ul  key={idl}>
+               <li>
+                   {l.namaLantai}
+                   {l.namaRuangan.map((r, idr)=>{
+                       return(
+                           <ul  key={idr}>
+                           <li>{r.ruangan}</li>
+                           </ul>
+                       )
+                   })}
+                </li>
+                </ul>
+           )
+       })}</td>
+       <td>{b.tglBerlaku}</td>
+       <td>{b.tglBerakhir}</td>
+       <td>{b.status}</td>
+      </tr>                
+                          
+                        )
+                    })
+                }
+                </tbody>
+              </table>
+
+              <h6>Detail Data Master :</h6>
+            <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
                 <thead>
                   <tr>
                     <th width={9}><b>No</b></th>
@@ -85,11 +136,6 @@ class Laporan extends Component {
                     <td align="center"></td>
                     <td>Perempuan</td>
                     <td>{this.props.datakaryawan.filter(x => x.jk === "P").length} Karyawan</td>
-                  </tr>
-                  <tr>
-                    <td align="center">6</td>
-                    <td>Detail Hak Akses</td>
-                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -252,7 +298,8 @@ const mapStateToProps = state => ({
   dataRuangan : state.RReducer.ruangan,
   dataLantai : state.LReducer.lantai,
   dataJabatan: state.JReducer.jabatan,
-  datakaryawan: state.KReducer.karyawan
+  datakaryawan: state.KReducer.karyawan,
+  dataHakAkses: state.HAReducer.hakakses
 })
 
 const mapDispatchToProps = dispatch => {

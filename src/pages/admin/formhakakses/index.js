@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
 import { 
-    Radio,
     Select,
     Input,
     Button,
@@ -10,7 +9,8 @@ import {
     Fieldset,
     IsiBody,
     HeaderContent, 
-    Content} from "../../../component"
+    Content,
+    Check} from "../../../component"
 
 class FormHakAkses extends Component {
     constructor(props) {
@@ -22,7 +22,8 @@ class FormHakAkses extends Component {
              namaJabatan : "",
              tglBerlaku : "",
              tglBerakhir : "",
-             selectData : {}
+             selectData : {},
+             basement : ""
         }
     }
 
@@ -31,6 +32,7 @@ class FormHakAkses extends Component {
           [el.target.name]: el.target.value
       })
     }
+
 
     selectValue= el=>{
     
@@ -46,6 +48,11 @@ class FormHakAkses extends Component {
     })
 
       }
+
+
+    setCheck = (el) => {
+      
+    }
 
     render() {
 
@@ -95,8 +102,19 @@ class FormHakAkses extends Component {
           </Fieldset>
 
           <Fieldset>
-            <Label>Hak Akses<font color="red">*</font></Label>
-            
+            <Label>Hak Akses<font color="red">*</font></Label><br/>
+            {
+                    this.props.dataLantai.map(
+                    (Item, idx) =>
+                    <>
+                        <input type="checkbox"  name="namaLantai" onClick={this.setCheck} value={Item.nama} key={idx}/> {Item.nama}<br/>
+                        {this.props.dataRuangan.filter(ruang => ruang.namaLantai == Item.nama).map((fRuang, id) =>
+                          <li><input type="checkbox"  name="namaRuangan" onClick={this.setCheck} value={fRuang.namaRuangan} key={id}/> {fRuang.namaRuangan}<br/></li>
+                        )}
+                    </>
+                    
+                    )
+            }
           </Fieldset>
          
           <Button className="btn btn-primary">
@@ -114,7 +132,9 @@ class FormHakAkses extends Component {
 const mapStateToProps = state => ({
   dataDivisi: state.DReducer.divisi,
   dataJabatan: state.JReducer.jabatan,
-  dataKaryawan: state.KReducer.karyawan
+  dataKaryawan: state.KReducer.karyawan,
+  dataLantai: state.LReducer.lantai,
+  dataRuangan: state.RReducer.ruangan
 })
 
 const mapDispatchToProps = dispatch => {

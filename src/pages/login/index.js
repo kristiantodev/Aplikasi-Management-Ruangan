@@ -44,7 +44,6 @@ class Login extends Component {
       
           if(validLogin.length > 0){
               this.props.submitLogin({userData: dataLogin[0]})
-              alert("Selamat datang "+username+" Anda berhasil login!!")
           }else{
                alert("Username atau Password atau Role Salah !!")
                this.props.history.push("/p403")
