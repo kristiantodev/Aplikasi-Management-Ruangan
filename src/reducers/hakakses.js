@@ -40,7 +40,7 @@ let defaultState = {
         tglBerlaku : "2020-10-10",
         tglBerakhir: "2021-01-10",
         hak_akses : [
-            {
+               {
                 namaLantai : "Basement",
                 namaRuangan : [
                     {
@@ -60,8 +60,41 @@ let defaultState = {
 const hakAksesReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SAVE_HAK_AKSES":
+
+            var today = new Date();
+            var tglAkhir = new Date(action.payload.tglBerakhir);
+            var statusHak;
+
+            if (tglAkhir > today) {
+                statusHak="Aktif"
+            }else{
+                statusHak="Tidak Aktif"
+            }
+
+            let newData = {
+                id: action.payload.id,
+                namaKaryawan: action.payload.namaKaryawan,
+                namaDivisi: action.payload.namaDivisi,
+                namaJabatan : action.payload.namaKaryawan,
+                tglBerlaku : action.payload.tglBerlaku,
+                tglBerakhir : action.payload.tglBerakhir,
+                hak_akses : action.payload.hak_akses,
+                status : statusHak
+            }
             
-            return defaultState
+            let data = {}
+
+            if (state.hakakses.length === 0) {
+                data = state.hakakses.concat(newData)
+                data = state.hakakses.concat(newData)
+            } else {
+                data = state.hakakses.concat(newData)
+            }
+
+            console.log(data)
+            return {
+                hakakses: data
+            }
            
             case "HAPUS_HAK_AKSES":
 

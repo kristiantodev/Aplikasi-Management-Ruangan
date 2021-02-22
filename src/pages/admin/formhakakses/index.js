@@ -11,6 +11,7 @@ import {
     HeaderContent, 
     Content,
     Check} from "../../../component"
+import ruangan from '../ruangan';
 
 class FormHakAkses extends Component {
     constructor(props) {
@@ -22,16 +23,47 @@ class FormHakAkses extends Component {
              namaJabatan : "",
              tglBerlaku : "",
              tglBerakhir : "",
-             selectData : {},
-             basement : ""
+             hak_akses : [
+              {
+               namaLantai : "",
+               namaRuangan : [
+                   {
+                       ruangan : ""
+                   }
+               ]
+           }
+       ],
         }
     }
-
+    // hak_akses[0].namaRuangan[0].ruangan
     setValue= el=>{
       this.setState({
           [el.target.name]: el.target.value
       })
     }
+
+    setHakAkses= el =>{
+      let obj = this.state
+
+      if(obj.id == "" || obj.tglBerlaku == "" || obj.tglBerakhir == ""){
+          alert("Data wajib diisi !!!")
+      }else{
+        var index = this.props.dataHakAkses.map(function(e) { return e.id; }).indexOf(obj.id);
+
+        // if(index >=0){
+        //     alert("ID Karyawan sudah mempunyai akses!! silahkan masukan ID lain...")
+        // }else{
+            console.log(obj)
+            this.props.saveHakAkses(obj);
+            el.preventDefault()
+            this.clear()
+            alert("Data berhasil disimpan !!")
+            this.props.history.push("/hakakses")
+        // }
+        
+      }
+    
+  }
 
 
     selectValue= el=>{
@@ -44,13 +76,44 @@ class FormHakAkses extends Component {
     this.setState({
         namaKaryawan : namaKaryawan,
         namaDivisi : namaDivisi,
-        namaJabatan : namaJabatan
+        namaJabatan : namaJabatan,
+        [el.target.name] : el.target.value
     })
 
       }
 
 
-    setCheck = (el) => {
+      clear = () => {
+        this.setState({ 
+             id : "",
+             namaKaryawan : "",
+             namaDivisi : "",
+             namaJabatan : "",
+             tglBerlaku : "",
+             tglBerakhir : ""
+        })
+    }
+
+
+    setCheckLantai = (el) => {
+    
+      if(el.target.checked === true) {
+        this.state.hak_akses[0].namaLantai = el.target.value;
+        console.log("nama lantai :", this.state.hak_akses.namaLantai)
+    }
+      
+    }
+
+    setCheckRuang = (el) => {
+      if(el.target.checked === true){
+        let namaRuangan = []
+        namaRuangan.push(el.target.value);
+        this.state.hak_akses[0].namaRuangan[0].ruangan = namaRuangan
+        console.log("namaruangan :", this.state.hak_akses.namaRuangan)
+        console.log("nama ruanga objec :", this.state.hak_akses[0].namaRuangan[0].ruangan)
+
+      }
+   
       
     }
 
@@ -76,7 +139,7 @@ class FormHakAkses extends Component {
         <IsiBody>     
         <Fieldset>
         <Label>Karyawan<font color="red">*</font></Label>
-                  <Select onChange={this.selectValue} name="id">
+                  <Select value={this.state.id} onChange={this.selectValue} name="id">
                   <Option value="">-- Pilih Karyawan--</Option>
                   {
                                 this.props.dataKaryawan.map(
@@ -107,9 +170,9 @@ class FormHakAkses extends Component {
                     this.props.dataLantai.map(
                     (Item, idx) =>
                     <>
-                        <input type="checkbox"  name="namaLantai" onClick={this.setCheck} value={Item.nama} key={idx}/> {Item.nama}<br/>
+                        <input type="checkbox"  name="namaLantai" onClick={this.setCheckLantai} value={Item.nama} key={idx}/> {Item.nama}<br/>
                         {this.props.dataRuangan.filter(ruang => ruang.namaLantai == Item.nama).map((fRuang, id) =>
-                          <li><input type="checkbox"  name="namaRuangan" onClick={this.setCheck} value={fRuang.namaRuangan} key={id}/> {fRuang.namaRuangan}<br/></li>
+                          <li><input type="checkbox"  name="namaRuangan" onClick={this.setCheckRuang} value={fRuang.namaRuangan} key={id}/> {fRuang.namaRuangan}<br/></li>
                         )}
                     </>
                     
@@ -117,7 +180,7 @@ class FormHakAkses extends Component {
             }
           </Fieldset>
          
-          <Button className="btn btn-primary">
+          <Button className="btn btn-primary" onClick={this.setHakAkses}>
             <i className="fa fa-save" />&nbsp;Simpan
           </Button>
   </IsiBody>  
@@ -134,12 +197,13 @@ const mapStateToProps = state => ({
   dataJabatan: state.JReducer.jabatan,
   dataKaryawan: state.KReducer.karyawan,
   dataLantai: state.LReducer.lantai,
-  dataRuangan: state.RReducer.ruangan
+  dataRuangan: state.RReducer.ruangan,
+  dataHakAkses : state.HAReducer.hakakses
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveKaryawan: (data)=> dispatch({type:"SAVE_KARYAWAN", payload: data})
+    saveHakAkses: (data)=> dispatch({type:"SAVE_HAK_AKSES", payload: data})
   }
 }
 
