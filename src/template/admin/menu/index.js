@@ -46,7 +46,9 @@ class Menu extends Component {
         </li>
 
         <li>
-          <a href="/lantai" className="waves-effect"><i className="fas fa-th-list" /><span> Data Master<span className="float-right menu-arrow"><i className="mdi mdi-plus" /></span> </span></a>
+        <Link to="/lantai">
+          <div className="waves-effect"><i className="fas fa-th-list" /><span> Data Master<span className="float-right menu-arrow"></span> </span></div>
+          </Link>
           <ul className="submenu">
             <li>
         <Link to="/lantai">
@@ -92,9 +94,9 @@ class Menu extends Component {
         </li>
 
         <li>
-        <Link to="/">
-          <Fitur onClick={() => this.props.history.push("/")}>
-            <i className="fas fa-key" /><span> Hak Akses </span>
+        <Link to="/hakakses">
+          <Fitur onClick={() => this.props.history.push("/hakakses")}>
+            <i className="fas fa-key"/><span> Hak Akses </span>
           </Fitur>
           </Link>
         </li>

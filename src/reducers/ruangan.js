@@ -12,6 +12,12 @@ let defaultState = {
         namaRuangan : "Masak",
         kondisiRuangan : "Kosong",
         deskripsi : "Sangat Baik"
+    },
+    {
+        namaLantai : "Grand Floor",
+        namaRuangan : "Merpati",
+        kondisiRuangan : "Kosong",
+        deskripsi : "Sangat Baik"
     }
     ]
 }

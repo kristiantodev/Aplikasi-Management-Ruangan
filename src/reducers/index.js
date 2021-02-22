@@ -6,6 +6,7 @@ import RuanganReducer from "./ruangan"
 import DivisiReducer from "./divisi"
 import JabatanReducer from "./jabatan"
 import KaryawanReducer from "./karyawan"
+import HakAksesReducer from "./hakakses"
 
 let store = createStore(combineReducers({
     AReducer: AuthReducer,
@@ -14,7 +15,8 @@ let store = createStore(combineReducers({
     RReducer: RuanganReducer,
     DReducer: DivisiReducer,
     JReducer: JabatanReducer,
-    KReducer : KaryawanReducer
+    KReducer : KaryawanReducer,
+    HAReducer : HakAksesReducer
 }))
 
 export default store

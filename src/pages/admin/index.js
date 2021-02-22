@@ -9,5 +9,6 @@ import FormRuangan from "./formruangan"
 import FormDivisi from "./formdivisi"
 import FormJabatan from "./formjabatan"
 import FormKaryawan from './formkaryawan'
+import HakAkses from "./hakakses"
 
-export {Dashboard, Lantai, Ruangan, Divisi, Jabatan, Karyawan, FormLantai, FormRuangan, FormDivisi, FormJabatan, FormKaryawan}
+export {Dashboard, HakAkses, Lantai, Ruangan, Divisi, Jabatan, Karyawan, FormLantai, FormRuangan, FormDivisi, FormJabatan, FormKaryawan}
