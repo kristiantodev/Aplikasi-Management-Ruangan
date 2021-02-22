@@ -177,6 +177,9 @@ class Jabatan extends Component {
                         )
                     })
                 }
+                <tr>
+                  <td colSpan="5"><b>Total data : {this.props.dataJabatan.length}</b></td>
+                </tr>
                 </tbody>
               </table>
           </IsiBody>
@@ -193,7 +196,7 @@ class Jabatan extends Component {
       </div>
         <div className="modal-body">
         <Fieldset>
-        <Label>Nama Divisi</Label>
+        <Label>Nama Divisi<font color="red">*</font></Label>
                   <Select  value={this.state.namaDivisi} onChange={this.setValue} name="namaDivisi">
                   <option value="">-- Pilih Nama Divisi--</option>
                   {
@@ -205,7 +208,7 @@ class Jabatan extends Component {
                   </Select>
                 </Fieldset>
           <Fieldset>
-            <Label>Nama Jabatan</Label>
+            <Label>Nama Jabatan<font color="red">*</font></Label>
             <Input type="text" name="namaJabatan" className="form-control" value={this.state.namaJabatan} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>

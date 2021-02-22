@@ -169,6 +169,9 @@ class Divisi extends Component {
                         )
                     })
                 }
+                <tr>
+                  <td colSpan="4"><b>Total data : {this.props.dataDivisi.length}</b></td>
+                </tr>
                 </tbody>
               </table>
           </IsiBody>
@@ -185,7 +188,7 @@ class Divisi extends Component {
       </div>
         <div className="modal-body">
           <Fieldset>
-            <Label>Nama Divisi</Label>
+            <Label>Nama Divisi<font color="red">*</font></Label>
             <Input type="text" name="namaDivisi" value={this.state.namaDivisi} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>

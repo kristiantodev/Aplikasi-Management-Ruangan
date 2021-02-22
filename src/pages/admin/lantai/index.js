@@ -195,6 +195,9 @@ class Lantai extends Component {
                         )
                     })
                 }
+                <tr>
+                  <td colSpan="4"><b>Total data : {this.props.dataLantai.length}</b></td>
+                </tr>
                 </tbody>
               </table>
         </IsiBody>
@@ -211,7 +214,7 @@ class Lantai extends Component {
       </div>
         <div className="modal-body">
           <Fieldset>
-            <Label>Nama Lantai</Label>
+            <Label>Nama Lantai<font color="red">*</font></Label>
             <Input type="text" name="nama" value={this.state.nama} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>

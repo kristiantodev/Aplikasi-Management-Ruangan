@@ -76,7 +76,7 @@ class FormJabatan extends Component {
 
           <IsiBody>
           <Fieldset>
-        <Label>Nama Divisi</Label>
+        <Label>Nama Divisi<font color="red">*</font></Label>
                   <Select  value={this.state.namaDivisi} onChange={this.setValue} name="namaDivisi">
                   <option value="">-- Pilih Nama Divisi--</option>
                   {
@@ -88,7 +88,7 @@ class FormJabatan extends Component {
                   </Select>
                 </Fieldset>
           <Fieldset>
-            <Label>Nama Jabatan</Label>
+            <Label>Nama Jabatan<font color="red">*</font></Label>
             <Input type="text" name="namaJabatan" className="form-control" value={this.state.namaJabatan} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>

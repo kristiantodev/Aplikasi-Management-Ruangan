@@ -78,7 +78,7 @@ class FormRuangan extends Component {
             </HeaderContent>
             <IsiBody>
             <Fieldset>
-        <Label>Nama Lantai</Label>
+        <Label>Nama Lantai<font color="red">*</font></Label>
                   <Select value={this.state.namaLantai} onChange={this.setValue} name="namaLantai">
                   <Option value="">-- Pilih Nama Lantai--</Option>
                   {
@@ -90,7 +90,7 @@ class FormRuangan extends Component {
                   </Select>
                 </Fieldset>
           <Fieldset>
-            <Label>Nama Ruangan</Label>
+            <Label>Nama Ruangan<font color="red">*</font></Label>
             <Input type="text" name="namaRuangan"value={this.state.namaRuangan} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>

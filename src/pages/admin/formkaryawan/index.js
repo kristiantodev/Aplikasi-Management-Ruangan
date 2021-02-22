@@ -10,8 +10,7 @@ import {
     Fieldset,
     IsiBody,
     HeaderContent, 
-    Content,
-    Modal} from "../../../component"
+    Content} from "../../../component"
 
 class FormKaryawan extends Component {
     constructor(props) {
@@ -101,7 +100,7 @@ class FormKaryawan extends Component {
     
         <IsiBody>     
         <Fieldset>
-        <Label>Nama Divisi</Label>
+        <Label>Nama Divisi<font color="red">*</font></Label>
                   <Select value={this.state.namaDivisi} onChange={this.selectAction} name="namaDivisi">
                   <Option value="">-- Pilih Nama Divisi--</Option>
                   {
@@ -114,7 +113,7 @@ class FormKaryawan extends Component {
                 </Fieldset>
 
                 <Fieldset>
-        <Label>Nama Jabatan</Label> 
+        <Label>Nama Jabatan<font color="red">*</font></Label> 
                   <select value={this.state.namaJabatan} disabled={(this.state.disabled)? "disabled" : ""} onChange={this.setValue} name="namaJabatan" className="custom-select">
                   <Option value="">-- Pilih Nama Jabatan--</Option>
                   {
@@ -127,17 +126,17 @@ class FormKaryawan extends Component {
                 </Fieldset>
 
           <Fieldset>
-            <Label>ID Karyawan</Label>
+            <Label>ID Karyawan<font color="red">*</font></Label>
             <Input type="text" name="id" value={this.state.id} onChange={this.setValue}/>
           </Fieldset>
 
           <Fieldset>
-            <Label>Nama Karyawan</Label>
+            <Label>Nama Karyawan<font color="red">*</font></Label>
             <Input type="text" name="namaKaryawan" value={this.state.namaKaryawan} onChange={this.setValue}/>
           </Fieldset>
 
           <Fieldset>
-            <Label>Jenis Kelamin</Label>
+            <Label>Jenis Kelamin<font color="red">*</font></Label>
             <br/>
             <Radio type="radio" checked={this.state.jk==="L"?"checked":""} name='jk' value="L" onChange={this.setValue}/>Laki-laki &nbsp;
             <Radio type="radio" checked={this.state.jk==="P"?"checked":""} name='jk' value="P" onChange={this.setValue}/>Perempuan

@@ -71,7 +71,7 @@ class FormLantai extends Component {
   </HeaderContent>
      <IsiBody>
      <Fieldset>
-            <Label>Nama Lantai</Label>
+            <Label>Nama Lantai<font color="red">*</font></Label>
             <Input type="text" name="nama" value={this.state.nama} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>

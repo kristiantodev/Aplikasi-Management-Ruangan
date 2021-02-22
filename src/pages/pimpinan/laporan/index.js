@@ -93,7 +93,145 @@ class Laporan extends Component {
                   </tr>
                 </tbody>
               </table>
-             
+             <h6>Data Lantai :</h6>
+             <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th width={9}><b>No</b></th>
+                    <th><b>Nama Lantai</b></th>
+                    <th><b>Deskripsi</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    this.props.dataLantai.map((b, index) => {
+                        return (
+<tr key={index}>
+      <td>{index+1}</td>
+       <td>{b.nama}</td>
+       <td>{b.deskripsi}</td>
+      </tr>                
+                          
+                        )
+                    })
+                }
+                </tbody>
+              </table>
+              <h6>Data Ruangan :</h6>
+              <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th width={9}><b>No</b></th>
+                    <th><b>Nama Lantai</b></th>
+                    <th><b>Nama Ruangan</b></th>
+                    <th><b>Kondisi Ruangan</b></th>
+                    <th><b>Deskripsi</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    this.props.dataRuangan.map((b, index) => {
+                        return (
+<tr key={index}>
+      <td>{index+1}</td>
+       <td>{b.namaLantai}</td>
+       <td>{b.namaRuangan}</td>
+       <td>{b.kondisiRuangan}</td>
+       <td>{b.deskripsi}</td>
+      </tr>                
+                          
+                        )
+                    })
+                }
+                </tbody>
+              </table>
+
+              <h6>Data Divisi :</h6>
+
+              <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th width={9}><b>No</b></th>
+                    <th><b>Nama Divisi</b></th>
+                    <th><b>Deskripsi</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    this.props.dataDivisi.map((b, index) => {
+                        return (
+<tr key={index}>
+      <td>{index+1}</td>
+       <td>{b.namaDivisi}</td>
+       <td>{b.deskripsi}</td>
+      </tr>                
+                          
+                        )
+                    })
+                }
+                
+                </tbody>
+              </table>
+
+              <h6>Data Jabatan :</h6>
+              <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th width={9}><b>No</b></th>
+                    <th><b>Nama Divisi</b></th>
+                    <th><b>Nama Jabatan</b></th>
+                    <th><b>Deskripsi</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    this.props.dataJabatan.map((b, index) => {
+                        return (
+<tr key={index}>
+      <td>{index+1}</td>
+       <td>{b.namaDivisi}</td>
+       <td>{b.namaJabatan}</td>
+       <td>{b.deskripsi}</td>
+      </tr>                
+                          
+                        )
+                    })
+                }
+               
+                </tbody>
+              </table>
+              <h6>Data Karyawan :</h6>
+              <table className="table table-striped table-bordered dt-responsive nowrap" style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
+                <thead>
+                  <tr>
+                    <th><b>ID</b></th>
+                    <th><b>Nama Karyawan</b></th>
+                    <th><b>JK</b></th>
+                    <th><b>Nama Divisi</b></th>
+                    <th><b>Nama Jabatan</b></th>
+                    <th><b>Tgl Masuk</b></th>
+                    <th><b>Tgl Keluar</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    this.props.datakaryawan.map((b, index) => {
+                        return (
+<tr key={index}>
+       <td>{b.id}</td>
+       <td>{b.namaKaryawan}</td>
+       <td>{b.jk}</td>
+       <td>{b.namaDivisi}</td>
+       <td>{b.namaJabatan}</td>
+       <td>{b.tglMasuk}</td>
+       <td>{b.tglSelesai}</td>
+      </tr>                
+                          
+                        )
+                    })
+                }
+                </tbody>
+              </table>
             </div>
           </div>
         </div> {/* end col */}

@@ -72,7 +72,7 @@ class FormDivisi extends Component {
     </HeaderContent>
     <IsiBody>
     <Fieldset>
-            <Label>Nama Divisi</Label>
+            <Label>Nama Divisi<font color="red">*</font></Label>
             <Input type="text" name="namaDivisi" value={this.state.namaDivisi} onChange={this.setValue}/>
           </Fieldset>
           <Fieldset>
